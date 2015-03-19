@@ -40,4 +40,9 @@ $RECYCLE.BIN/
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdisk
+.metadata/*
+
+*.zip
+
+*.snap
+.metadata/.plugins/org.eclipse.core.resources/.projects/BusyCorpVerticalTransport/.markers.snap

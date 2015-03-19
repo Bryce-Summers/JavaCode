@@ -1,6 +1,0 @@
-INDEX VERSION 1.127+C:\Users\Bryce\Desktop\GIT CODE\JavaCode\.metadata\.plugins\org.eclipse.jdt.core
-527096171.index
-802853413.index
-162911293.index
-2332644288.index
-2718552717.index

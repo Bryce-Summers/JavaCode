@@ -1,8 +1,0 @@
-package Project;
-
-public class Snippet {
-	public static void main(String[] args) {
-		Simple_Input
-	}
-}
-
