@@ -1,0 +1,34 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+
+-40
+
+Matrix Frame
+false
+1
+1
+1
+'\l' 
+
+gui_annotationBox
+1
+
+-40
+
+Expression Frame
+gui_label
+\l
+gui_label
+\l
+End
+
+Matrix Frame
+false
+1
+1
+1
+'\l' ^{2}
+

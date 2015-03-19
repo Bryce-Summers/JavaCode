@@ -1,0 +1,275 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+1
+3
+-4
+0
+1
+-1
+0
+0
+0
+
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+1
+3
+-4
+0
+1
+-1
+-3
+-8
+11
+
+gui_annotationBox
+1
+R_{1} --> R_{1}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+1
+3
+-4
+2
+7
+-9
+-3
+-8
+11
+
+gui_annotationBox
+1
+R_{0} --> 2 R_{0}
+-851977
+
+Matrix Frame
+false
+(1)/(2)
+3
+3
+2
+6
+-8
+2
+7
+-9
+-3
+-8
+11
+
+ShiftR
+0
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+6
+-8
+2
+7
+-9
+-3
+-8
+11
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+2
+6
+-8
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+2
+7
+-9
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+-3
+-8
+11
+
+ShiftR
+0
+gui_annotationBox
+2
+Determine whether the given 3 vectors are linearly independant or not!
+-851977
+Vector 1
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+2
+6
+-8
+
+gui_annotationBox
+1
+Vector 2
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+2
+7
+-9
+
+gui_annotationBox
+1
+Vector 3
+-851977
+
+Matrix Frame
+false
+1
+1
+3
+-3
+-8
+11
+
+gui_annotationBox
+1
+Determine whether there is a pivot in every column after row reducing by elementary row operations.
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+6
+-8
+2
+7
+-9
+-3
+-8
+11
+
+gui_annotationBox
+1
+R_{1} --> R_{1} - R_{0}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+6
+-8
+0
+1
+-1
+-3
+-8
+11
+
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+6
+-8
+0
+1
+-1
+0
+1
+-1
+
+gui_annotationBox
+2
+R_{2} --> R_{2}
+-851977
+Answer = The vectors are linearly dependant!
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+6
+-8
+0
+1
+-1
+0
+0
+0
+

@@ -1,0 +1,63 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+a
+b
+c
+d
+e
+f
+g
+h
+ i
+
+gui_annotationBox
+1
+R_{1} --> R_{1}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+a
+b
+c
+0
+(ae - bd)/(a)
+(af - cd)/(a)
+g
+h
+ i
+
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+a
+b
+c
+0
+(ae - bd)/(a)
+(af - cd)/(a)
+0
+(ah - bg)/(a)
+(-cg +  ia)/(a)
+

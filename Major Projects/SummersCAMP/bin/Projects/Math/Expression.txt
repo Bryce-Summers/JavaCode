@@ -1,0 +1,1023 @@
+// FIXME : Take out all presimplification methods within the arithmetic operations.
+// FIXME : Review the research Article Dr. Warme game me thouroughly.
+
+
+
+package BryceMath.Numbers;
+
+import java.io.PrintStream;
+import java.util.Iterator;
+
+import Data_Structures.Structures.HashingClasses.AArray;
+import Data_Structures.Structures.HashTable;
+import Data_Structures.Structures.IterB;
+import Data_Structures.Structures.List;
+import static util.Print.*;
+
+
+/*
+ * The Expression class.
+ * 
+ * Written by Bryce Summers on 9 - 2 - 2013.
+ * 
+ * Purpose : This class implements true fully recursive expressions.
+ * 
+ *  - incorporates 4 different data types.
+ *  - 1. Constant of type Complex. (Leaf).
+ *  - 2. Variable of type string.  (Leaf).
+ *  - 3. Product of type AArray<Expression, Expression> that maps products to exponents. (Recursive branch).
+ *  - 4. sum of type HashTable<Expression>. (Recursive branch).
+ *  
+ *  The data associated with each of the different modes is only initialized for correct modes.
+ *  
+ *  - Allows for new primitive expressions to be formed from integers and variables.
+ *  - More complex or larger expression can be formed through the various operations.
+ *  
+ *  Note : Like the rest of my number classes, Expressions should be immutable.
+ *  
+ *  Most of the standard functions take a lazy method of merely constructing the correct structure.
+ *  The simplification and consistency of equal expressions comes from the simplification method at the bottom.
+ */
+
+public class Expression extends Number<Expression>
+{
+	// -- Public constants
+	public final static Expression ONE = new Expression(1);
+	public final static Expression ZERO = new Expression(0);
+
+	// All expressions know whether or not they have been simplified yet.
+	// This prevents us from simplifying expressions repeatedly.
+	private boolean simplified = false;
+	
+	// Types
+	private final int mode;
+	
+	private final int CONSTANT = 0;
+	
+	Complex constant_val;
+	
+	private final int VARIABLE = 1;
+	
+	String var_name;
+	
+	// Sum of expressions.
+	private final int SUM		= 2;
+	
+	// Maps Expressions to Integral coefficients.
+	AArray<Expression, IntB> sum_data;
+	
+	// Product expressions that are mapped to Exponents.
+	private final int PRODUCT	= 3;
+	
+	AArray<Expression, Expression> product_data;
+	
+	// -- public constructors for constants and variables.
+	public Expression(long i)
+	{
+		mode = CONSTANT;
+		
+		constant_val = new Complex(i);
+		
+		simplified = true;
+	}
+	
+	
+	
+	public Expression(IntB i)
+	{
+		mode = CONSTANT;
+		
+		constant_val = new Complex(i);
+		
+		simplified = true;
+	}
+	
+	public Expression(Rational r)
+	{
+		mode = CONSTANT;
+		
+		constant_val = new Complex(r);
+		
+		simplified = true;
+	}
+	
+	public Expression(Complex c)
+	{
+		mode = CONSTANT;
+		
+		constant_val = c;
+		
+		simplified = true;
+	}
+	
+	public Expression(char c)
+	{
+		simplified = true;
+		
+		// Special case for the literal "i";
+		if(c == 'i')
+		{
+			mode = CONSTANT;
+			constant_val = Complex.I;
+			return;
+		}
+
+		mode = VARIABLE;
+		var_name = "" + c;
+		
+	}
+	
+	public Expression(String s)
+	{
+		simplified = true;
+		
+		// Special case for the literal "i";
+		if(s.equals("i"))
+		{
+			mode = CONSTANT;
+			constant_val = Complex.I;
+			return;
+		}
+
+		mode = VARIABLE;
+		var_name = s;
+	}
+	
+	// Private constructors for sums and products.
+	
+	// Construct a simple sum of positive terms.
+	private Expression(Expression ... sums)
+	{
+		mode = SUM;
+		
+		sum_data = new AArray<Expression, IntB>();
+		
+		// Populate the expression to coefficient association.
+		for(Expression e : sums)
+		{
+			IntB coef = sum_data.lookup(e);
+			if(coef == null)
+			{
+				coef = IntB.ZERO;
+			}
+			
+			coef = coef.add(IntB.ONE);
+			
+			sum_data.update(e, coef);
+		}
+		
+	}
+
+	private Expression(AArray<Expression, IntB> data, boolean flag)
+	{
+		mode = SUM;
+		
+		sum_data = data;
+	}
+	
+	private Expression(AArray<Expression, Expression> data)
+	{
+		mode = PRODUCT;
+		
+		product_data = data;
+	}
+	
+	@Override
+	Expression N(long n)
+	{
+		return new Expression(n);
+	}
+
+	@Override
+	public Expression zero()
+	{
+		return ZERO;
+	}
+
+	@Override
+	public Expression one()
+	{
+		return ONE;
+	}
+
+	// pushes the input expression into this expressions summation if possible,
+	// else creates a new summation with this and the input.
+	// ENSURES : The output is in simplified form.
+	@Override
+	public Expression add(Expression input)
+	{
+		print("ADD");
+		print(this);
+		print(input);
+		print("");
+		
+		// Additive identity.
+		if(input.eq(0))
+		{
+			return this;
+		}
+		
+		if(eq(0))
+		{
+			return input;
+		}
+		
+		Expression output;
+		
+		// Create a sum of this expression and the input.
+		if(mode != SUM)
+		{
+			output = new Expression(this, input);
+		}
+		else
+		{
+			AArray<Expression, IntB> output_data = sum_data.clone();
+			
+			// Lookup the current coef.
+			IntB coef = output_data.lookup(input);
+			
+			if(coef != null)
+			{
+				output_data.update(input, coef.add(1));
+			}
+			else
+			{
+				output_data.insert(input, IntB.ONE);
+			}
+			
+			output = new Expression(output_data, true);
+		}
+				
+		return output.simplify();
+	}
+
+	// sum this and the negation of input.
+	@Override
+	public Expression sub(Expression input)
+	{
+		if(input.eq(0))
+		{
+			return this;
+		}
+		
+		if(eq(0))
+		{
+			return input.neg();
+		}
+
+		if(input.eq(this))
+		{
+			return ZERO;
+		}
+
+		// The add function performs the simplification.
+		return add(input.neg());
+	}
+	
+	// pushes the input expression into this expressions' product if possible,
+	// else creates a new product with this and the input.
+	// ENSURES : The output is in simplified form.
+	@Override
+	public Expression mult(Expression input)
+	{
+
+		if(input.eq(0) || eq(0))
+		{
+			return ZERO;
+		}
+				
+		if(input.eq(1))
+		{
+			return this;
+		}
+		
+		if(eq(1))
+		{
+			return input;
+		}
+				
+		Expression output;
+		
+		// Create a product of this expression and the input.
+		if(mode != PRODUCT)
+		{
+			if(input.mode == CONSTANT && input.constant_val.isInt())
+			{
+				
+				AArray<Expression, IntB> output_Data = new AArray<Expression, IntB>();
+				
+				output_Data.insert(this, input.constant_val.toIntB());
+				
+				return new Expression(output_Data, true);
+			}
+			
+			AArray<Expression, Expression> output_data = new AArray<Expression, Expression>();
+		
+			// Handle the square case.
+			if(eq(input))
+			{
+				output_data.insert(this, new Expression(2));
+			}
+			else
+			{
+				output_data.insert(this, ONE);
+				output_data.insert(input, ONE);
+			}
+			
+			output = new Expression(output_data);
+		}
+		else
+		{
+			AArray<Expression, Expression> output_data = product_data.clone();
+			
+			// Condense similar based exponents.
+			Expression exponent = output_data.lookup(input);
+			
+			// Just insert the new base.
+			if(exponent == null)
+			{
+				output_data.insert(input, ONE);
+				output = new Expression(output_data);
+			}
+			else
+			{
+				exponent = exponent.add(ONE);
+				if(exponent.eq(0))
+				{
+					output_data.remove_key(input);
+				}
+				else
+				{
+					output_data.update(input, exponent);
+				}
+			}
+			
+			output = new Expression(output_data);
+		}
+		
+		return output.simplify();
+
+	}
+
+	@Override
+	public Expression div(Expression input)
+	{
+		if(input.eq(0))
+		{
+			throw new Error("ERROR : Expressions cannot be divided by 0!");
+		}
+		
+		if(input.eq(1))
+		{
+			return this;
+		}
+		
+		AArray<Expression, Expression> output_data = new AArray<Expression, Expression>(); 
+		
+		output_data.insert(this, ONE);
+		
+		// Division is the same as multiplying a the number to the power of '-1'.
+		output_data.insert(input, ONE.neg());
+		
+		Expression output = new Expression(output_data);
+		
+		return output.simplify();
+	}
+
+	// This is ridiculously easy for expressions.
+	@Override
+	public Expression sqrt()
+	{
+		return pow(ONE.div(2));
+	}
+
+	// FIXME : This may not be correct until fixed after the simplification function has been written.
+	// FIXME : This relies on equivalent expressions having equivalent structures.
+	
+	@Override
+	public boolean eq(Expression other)
+	{
+		// We cannot compare Expressions of different structures.
+		if(mode != other.mode)
+		{
+			return false;
+		}
+		
+		if(mode == CONSTANT)
+		{
+			return constant_val.eq(other.constant_val);
+		}
+		
+		if(mode == VARIABLE)
+		{
+			return var_name.equals(other.var_name);
+		}
+		
+		if(mode == SUM)
+		{
+			return sum_data.equals(other.sum_data);
+		}
+		
+		if(mode == PRODUCT)
+		{
+			return product_data.equals(other.product_data);
+		}
+		
+		throw new Error("Mode : " + mode + " is not supported.");
+	}
+
+	// This will be consistent with the equality function eq(), because it also depends on the structure of the expression.
+	@Override
+	public int hashCode()
+	{
+		if(mode == CONSTANT)
+		{
+			return constant_val.hashCode();
+		}
+		
+		if(mode == VARIABLE)
+		{
+			return var_name.hashCode();
+		}
+		
+		if(mode == SUM)
+		{
+			return sum_data.hashCode();
+		}
+		
+		if(mode == PRODUCT)
+		{
+			return product_data.hashCode();
+		}
+		
+		throw new Error("Mode : " + mode + " is not supported.");
+	}
+
+	@Override
+	public String toString()
+	{
+		if(mode == CONSTANT)
+		{
+			return constant_val.toString();
+		}
+		
+		if(mode == VARIABLE)
+		{
+			return var_name;
+		}
+		
+		if(mode == SUM)
+		{
+			if(sum_data.isEmpty())
+			{
+				return "0";
+			}
+			
+			List<Expression> keys = sum_data.getKeys();
+			
+			// Sort to ensure consistency.
+			keys.sort();
+			
+			IterB<Expression> iter = keys.getIter();
+			
+			StringBuilder output = new StringBuilder();
+			
+			Expression first = iter.next();
+
+			output.append(sum_data.lookup(first).toCoef() + first);
+		
+			
+			while(iter.hasNext())
+			{
+				Expression e = iter.next();
+
+				IntB coef = sum_data.lookup(e);
+
+				if(coef.isNegative())
+				{
+					output.append(" - " + coef.neg().toCoef() + e);
+				}
+				else
+				{
+					output.append(" + " + coef.toCoef() + e);
+				}
+			}
+
+			return output.toString();
+		}
+		
+		// Create a Bryce TEXED fraction.
+		if(mode == PRODUCT)
+		{
+			List<Expression> keys = product_data.getKeys();
+			
+			// We sort the keys to ensure consistent strings, assuming consistent comparison functions.
+			keys.sort();
+			
+			Iterator<Expression> iter = keys.iterator();
+			
+			StringBuilder num   = new StringBuilder();
+			StringBuilder denom = new StringBuilder();
+			
+			while(iter.hasNext())
+			{
+				Expression base = iter.next();
+				Expression exponent = product_data.lookup(base);
+				
+				if(exponent.isNegative())
+				{
+					//denom.append("(" + base + ")");
+					denom.append(base);
+					
+					if(!base.eq(1) && !exponent.eq(-1));
+					{
+						denom.append("^{" + exponent.neg() + "}");
+					}
+				}
+				else
+				{
+					//num.append("(" + base + ")");
+					num.append(base);
+					
+					if(!base.eq(1) && ! exponent.eq(1))
+					{
+						num.append("^{" + exponent + "}");
+					}
+				}
+			}
+			
+			String s_num	= num.toString();
+			
+			if(s_num.length() == 0)
+			{
+				s_num = "1";
+			}
+			
+			String s_denom	= denom.toString();
+			
+			if(s_denom.length() != 0)
+			{
+				return "\\frac{" + num.toString() + "}{" + denom.toString() + "}";
+			}
+			else
+			{
+				return s_num;
+			}
+		}
+		
+		throw new Error("Mode : " + mode + " is not supported.");
+	}
+
+	@Override
+	public Expression neg()
+	{
+		return mult(-1);
+	}
+
+	// FIXME, FIXME, FIXME!!!
+	@Override
+	public boolean isNegative()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isPositive()
+	{
+		return true;
+	}
+
+	@Override
+	public int sign()
+	{
+		// 0.
+		if(eq(0))
+		{
+			return 0;
+		}
+		
+		// positive.
+		if(isPositive())
+		{
+			return 1;
+		}
+				
+		// Must be negative.
+		return -1;
+	}
+
+	@Override
+	public Expression abs()
+	{
+		if(isNegative())
+		{
+			return neg();
+		}
+		
+		// 0, or strictly positive.
+		return this;
+	}
+
+	@Override
+	public boolean isInt()
+	{
+		return mode == CONSTANT && constant_val.isInt();
+	}
+
+	@Override
+	public IntB toIntB()
+	{
+		if(mode != CONSTANT)
+		{
+			return null; 
+		}
+		
+		return constant_val.toIntB();
+	}
+
+	// When this returns 0, it might not be correct.
+	@Override
+	public int toInt()
+	{
+		if(mode != CONSTANT)
+		{
+			return 0;
+		}
+		
+		return constant_val.toInt();
+	}
+	
+	// Ridiculously easy in this representation form.
+	public Expression pow(Expression e)
+	{
+		AArray<Expression, Expression> data_new = new AArray<Expression, Expression>();
+		
+		data_new.insert(this, e);
+		
+		return new Expression(e);
+	}
+	
+	// Returns the multiplicative inverse of this expression.
+	public Expression mult_inverse()
+	{
+		if(eq(0))
+		{
+			throw new Error("ERROR : The expression : 0 has no multiplicative inverse!");
+		}
+		
+		return ONE.div(this);
+	}
+	
+	// Transcribed form the toString function. Very analagous code.
+	public String toSerialString()
+	{
+		
+		if(true)
+		{
+			//throw new Error("This could use some work!");
+		}
+		
+		if(mode == CONSTANT)
+		{
+			return constant_val.toSerialString();
+		}
+		
+		if(mode == VARIABLE)
+		{
+			return var_name;
+		}
+		
+		if(mode == SUM)
+		{
+			List<Expression> keys = sum_data.getKeys();
+			
+			// Sort to ensure consistency.
+			keys.sort();
+			
+			IterB<Expression> iter = keys.getIter();
+			
+			StringBuilder output = new StringBuilder();
+			
+			Expression first = iter.next();
+
+			output.append(sum_data.lookup(first).toCoef() + first.toSerialString());
+		
+			
+			while(iter.hasNext())
+			{
+				Expression e = iter.next();
+
+				IntB coef = sum_data.lookup(e);
+
+				if(coef.isNegative())
+				{
+					output.append(" - " + coef.neg() + e.toSerialString());
+				}
+				else
+				{
+					output.append(" + " + coef + e.toSerialString());
+				}
+			}
+
+			return output.toString();
+		}
+		
+		// Create a non Bryce TEXED fraction.
+		if(mode == PRODUCT)
+		{
+			Iterator<Expression> iter = product_data.getKeys().iterator();
+			
+			StringBuilder num   = new StringBuilder();
+			StringBuilder denom = new StringBuilder();
+			
+			while(iter.hasNext())
+			{
+				Expression base = iter.next();
+				Expression exponent = product_data.lookup(base);
+				
+				if(exponent.isNegative())
+				{
+					denom.append(base.toSerialString() + "^(" + exponent.neg().toSerialString() + ")");					
+				}
+				else
+				{
+					num.append(base.toSerialString() + "^(" + exponent.toSerialString() + ")");
+				}
+			}
+			
+			return "(" + num.toString() + ")/(" + denom.toString() + ")";
+		}
+		
+		throw new Error("Mode : " + mode + " is not supported.");
+	}
+	
+	// An intense function that returns an equivalent and consistent simplification for expressions.
+	// ENSURES : Equal expressions must reduce to equivalent structures.
+	
+	// FIXME : This function and its dependents use mutability.
+	public Expression simplify()
+	{
+		if(simplified)
+		{
+			return this;
+		}
+		
+		// Constants and variables are already simplified.
+		if(mode == CONSTANT || mode == VARIABLE)
+		{
+			return this;
+		}
+		
+		Expression output = this;
+
+		if(output.mode == PRODUCT)
+		{
+			output = simplifyProduct(output);
+		}
+		
+		
+		// Simplify sums.
+		if(output.mode == SUM)
+		{
+			print("Before : " + output.sum_data);
+			output = simplifySum(output);
+			print("After : " + output.sum_data);
+		}
+		
+		return output;
+	}
+	
+	// Reduces trivial arithmetic summations and differences.
+	public Expression simplifySum(Expression e_in)
+	{
+		Complex constant_sum = Complex.ZERO;
+		
+		// First simplify all of the sub expressions.
+		// Also reduce all Constants to 1.
+		List<Expression> keys = e_in.sum_data.getKeys();
+		
+		AArray<Expression, IntB> data = e_in.sum_data;
+		
+		for(Expression e : keys)
+		{
+			e = e.simplify();
+			
+			if(e.mode == CONSTANT)
+			{
+				data.remove_key(e);
+				constant_sum = constant_sum.add(e.constant_val);
+				continue;
+			}
+		
+		}
+		
+		if(data.isEmpty())
+		{
+			return new Expression(constant_sum);
+		}
+		
+		// First add the constant term, if non trivial.
+		if(!constant_sum.eq(0))
+		{
+			data.insert(new Expression(constant_sum), IntB.ONE);
+		}
+				
+		return e_in;
+	}
+	
+	// Combines constant terms, and reduces constants exponentiated to Integral powers.
+	// Simplifies elementary chains of multiplications and divisions.
+	public Expression simplifyProduct(Expression e_in)
+	{
+		Complex constant_product = Complex.ONE;
+		
+		// First simplify simplify all of the sub expressions.
+		// Also tabulate an association between each sub expression
+		// and its quantity in the larger expression.
+		List<Expression> keys = e_in.product_data.getKeys();
+		
+		for(Expression e : keys)
+		{
+			Expression exponent = e_in.product_data.lookup(e).simplify();
+			e_in.product_data.remove_key(e);
+			e = e.simplify();
+
+			// Non reducable case.
+			if(e.mode != CONSTANT || !exponent.isInt())
+			{
+				e_in.product_data.insert(e, exponent);
+				continue;
+			}
+			
+			// reducible constants case.
+			IntB i = exponent.toIntB();
+
+			// Positive exponent.
+			if(i.isPositive())
+			{
+				Complex c2 = e.constant_val.pow(i);
+				constant_product = constant_product.mult(c2);
+			}
+			else // Negative exponent.
+			{
+				Complex c2 = e.constant_val.pow(i.neg());
+				constant_product = constant_product.div(c2);
+			}
+			
+			continue;
+		
+		}
+
+		if(constant_product.eq(0))
+		{
+			return ZERO;
+		}
+			
+		if(constant_product.eq(1))
+		{
+			// Optimize products of term with a trivial exponent.
+			AArray<Expression, Expression> data2 = e_in.product_data;
+			if(data2.size() == 1 && data2.getValues().getFirst().eq(1))
+			{
+				return data2.getKeys().getFirst();
+			}
+			
+			return e_in;
+		}
+		
+		Expression constant_term = new Expression(constant_product);
+		
+		// Return the constant expression, if no other expressions exist.
+		if(product_data.size() == 0)
+		{
+			return constant_term;
+		}
+		
+		// Else insert the constant term into the list of products.
+		e_in.product_data.insert(constant_term, ONE);
+		
+		return e_in;
+	}
+	
+	@Override
+	public void serializeTo(PrintStream stream)
+	{
+		stream.println(toSerialString());
+		return;
+	}
+	
+	// Defines a consistent ordering of terms.
+	public int compareTo(Expression other)
+	{
+		// Handle constant comparisons.
+		if(mode == CONSTANT)
+		{
+			if(other.mode == CONSTANT)
+			{
+				return constant_val.compareTo(other.constant_val);
+			}
+		
+			// Less than.
+			return -1;
+			
+		}
+		
+		if(other.mode == CONSTANT)
+		{
+			// Greater than.
+			return 1;
+		}
+		
+		
+		// Handle comparisons of variables.
+		if(mode == VARIABLE)
+		{
+			if(other.mode == VARIABLE)
+			{
+				return var_name.compareTo(other.var_name);
+			}
+		
+			// less than.
+			return -1;
+			
+		}
+		
+		if(other.mode == VARIABLE)
+		{
+			// greater than.
+			return 1;
+		}
+		
+		// Handle comparisons of Sums.
+		if(mode == SUM)
+		{
+			if(other.mode == SUM)
+			{
+				// FIXME : The keys associated with their coefficients should be compared, instead of just the keys.
+				List<Expression> l1 = sum_data.getKeys();
+				l1.sort();
+				List<Expression> l2 = other.sum_data.getKeys();
+				l2.sort();
+				
+				return compare(l1, l2);
+			}
+	
+			// less than.
+			return -1;
+		}
+		
+		if(other.mode == SUM)
+		{
+			// greater than.
+			return 1;
+		}
+		
+		// ASSERT(mode == PRODUCT && other.mode == PRODUCT);
+		
+		AArray<Expression, Expression> data1 = product_data;
+		AArray<Expression, Expression> data2 = other.product_data;
+		
+		// FIXME : Please actually define a consistent comparison between products.
+		return 1;
+	}
+	
+	// Compare the two lists of Expression data.
+	private int compare(List<Expression> l1, List<Expression> l2)
+	{
+		// Sort the data.
+		l1.sort();
+		l2.sort();
+
+		Iterator<Expression> iter1 = l1.iterator();
+		Iterator<Expression> iter2 = l2.iterator();
+		
+		// Compare each successive term, short circuiting if an inequality is detected.
+		while(iter1.hasNext() && iter2.hasNext())
+		{
+			Expression e1 = iter1.next();
+			Expression e2 = iter2.next();
+			
+			int result = e1.compareTo(e2);
+			
+			if(result != 0)
+			{
+				return result;
+			}
+			
+			continue;
+		}
+		
+		// Returns a value based on which iterator still has terms after all of the equal terms.
+		if(iter1.hasNext())
+		{
+			return 1;
+		}
+		
+		if(iter2.hasNext())
+		{
+			return -1;
+		}
+		
+		return 0;
+	}
+}

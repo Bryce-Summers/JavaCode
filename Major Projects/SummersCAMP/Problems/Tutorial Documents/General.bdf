@@ -1,0 +1,39 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+13
+Welcome to Summers' Computer Aided Math Program!
+-40
+Your are looking at a document right now.
+-40
+
+-40
+The top of the screen contains buttons to go to the main menu,
+-40
+Save your Document, Load a help document,
+-40
+and move between problems in an assignment.
+-40
+
+-40
+The middle of the screen contains mathematical data FRAMES
+-40
+and a scrollbar to navigate them all.
+-40
+
+-40
+The bottom of the screen contains the operation panel.
+-40
+You can use this panel to create expressions from
+-40
+existing and new data which will be evaluated into new data.
+-40
+
+Matrix Frame
+false
+1
+1
+1
+0
+

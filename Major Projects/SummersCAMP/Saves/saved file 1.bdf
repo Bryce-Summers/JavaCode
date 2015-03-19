@@ -1,0 +1,93 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+Initial Matrix
+-851977
+
+Matrix Frame
+false
+1
+3
+3
+2
+(123456789001)/(50000000000)
+(2xz)/(y)
+18
+2
+0
+2
+0
+2ghj
+
+gui_annotationBox
+2
+Comment 2
+-851977
+New Comment
+-851977
+
+Matrix Frame
+false
+1
+1
+1
+4
+
+ShiftR
+2
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+1
+19
+
+ShiftL
+2
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+1
+4
+
+gui_annotationBox
+1
+
+-851977
+
+Matrix Frame
+false
+1
+1
+1
+4
+
+ShiftR
+4
+ShiftL
+4
+ShiftR
+2
+ShiftR
+2
+ShiftL
+2
+ShiftL
+2
+ShiftR
+0
+ShiftL
+0

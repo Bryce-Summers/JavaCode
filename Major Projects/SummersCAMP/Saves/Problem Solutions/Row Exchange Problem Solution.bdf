@@ -1,0 +1,125 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+Exchange row 1 and row 2 without using any row exchanges.
+-40
+
+Matrix Frame
+false
+1
+2
+2
+A
+B
+C
+D
+
+gui_annotationBox
+1
+R_{1} --> R_{1} R_{0}
+-40
+
+Expression Frame
+gui_matrix
+1
+2
+C
+D
+gui_label
++
+gui_matrix
+1
+2
+A
+B
+End
+
+Matrix Frame
+false
+1
+2
+2
+A
+B
+A + C
+B + D
+
+gui_annotationBox
+1
+R_{0} --> R_{0} - R_{1}
+-40
+
+Expression Frame
+gui_matrix
+1
+2
+A
+B
+gui_label
+-
+gui_matrix
+1
+2
+A + C
+B + D
+End
+
+Matrix Frame
+false
+1
+2
+2
+-C
+-D
+A + C
+B + D
+
+gui_annotationBox
+1
+R_{1} --> R_{1} + R_{0}
+-40
+
+Expression Frame
+gui_matrix
+1
+2
+A + C
+B + D
+gui_label
++
+gui_matrix
+1
+2
+-C
+-D
+End
+
+Matrix Frame
+false
+1
+2
+2
+-C
+-D
+A
+B
+
+gui_annotationBox
+2
+R_{0} --> - R_{0}
+-40
+Thus, a row exchange can be defined in terms of row addition and row scalar multiplication.
+-40
+
+Matrix Frame
+false
+-1
+2
+2
+C
+D
+A
+B
+

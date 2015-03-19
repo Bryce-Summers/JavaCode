@@ -1,0 +1,25 @@
+A Math save file for use with the Summers Math program, written by Bryce Summers
+Version 1
+Natural row reducing.bdf
+
+
+gui_annotationBox
+1
+Reduce the given matrix into row echelon form using Elementary row operations.
+-40
+
+Matrix Frame
+false
+1
+3
+3
+2
+1
+1
+1
+2
+1
+1
+1
+2
+

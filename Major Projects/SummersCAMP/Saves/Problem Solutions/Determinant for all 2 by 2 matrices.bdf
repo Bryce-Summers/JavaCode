@@ -1,0 +1,186 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+Compute the characteristic equation for any 2 by 2 matrice.
+-40
+
+Matrix Frame
+true
+1
+2
+2
+A
+B
+C
+D
+
+gui_annotationBox
+1
+
+-40
+
+Expression Frame
+gui_label
+A
+gui_label
+*
+gui_label
+D
+gui_label
+-
+gui_label
+C
+gui_label
+*
+gui_label
+B
+End
+
+Matrix Frame
+false
+1
+1
+1
+AD - BC
+
+ShiftR
+2
+gui_annotationBox
+1
+A_{1, 0}
+-40
+
+Matrix Frame
+true
+-C
+1
+1
+B
+
+gui_annotationBox
+1
+A_{1, 1}
+-40
+
+Matrix Frame
+true
+D
+1
+1
+A
+
+gui_annotationBox
+1
+
+-40
+
+Matrix Frame
+false
+1
+1
+1
+AD - BC
+
+ShiftR
+2
+gui_annotationBox
+1
+R_{1} --> R_{1}
+-40
+
+Expression Frame
+gui_matrix
+1
+2
+C
+D
+gui_label
+-
+gui_matrix
+1
+2
+A
+B
+gui_label
+*
+gui_label
+\frac{C}{a}
+End
+
+Matrix Frame
+true
+1
+2
+2
+A
+B
+(-AC + Ca)/(a)
+(-BC + Da)/(a)
+
+ShiftR
+2
+gui_annotationBox
+1
+R_{1} --> R_{1}
+-40
+
+Expression Frame
+gui_matrix
+1
+2
+C
+D
+gui_label
+-
+gui_matrix
+1
+2
+A
+B
+gui_label
+*
+gui_label
+\frac{C}{A}
+End
+
+Matrix Frame
+true
+1
+2
+2
+A
+B
+0
+(AD - BC)/(A)
+
+gui_annotationBox
+1
+
+-40
+
+Expression Frame
+gui_label
+A
+gui_label
+\frac{AD - BC}{A}
+End
+
+Matrix Frame
+false
+1
+1
+1
+AD - BC
+
+ShiftL
+2
+ShiftL
+2
+ShiftL
+2
+ShiftR
+2
+ShiftL
+2

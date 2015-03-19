@@ -1,0 +1,20 @@
+A Math save file for use with the Summers Math program, written by Bryce Summers
+Version 1
+Characteristic equation for all 2 by 2 Matrices.bdf
+
+
+gui_annotationBox
+1
+Compute the characteristic equation for any 2 by 2 matrice.
+-40
+
+Matrix Frame
+true
+1
+2
+2
+A
+B
+C
+D
+

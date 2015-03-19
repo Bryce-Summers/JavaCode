@@ -1,0 +1,83 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+Compute the characteristic equation for any 2 by 2 matrice.
+-40
+
+Matrix Frame
+true
+1
+2
+2
+A
+B
+C
+D
+
+gui_annotationBox
+1
+Subtract by lambda times I_{2}
+-40
+
+Expression Frame
+gui_matrix
+2
+2
+A
+B
+C
+D
+gui_label
+-
+gui_label
+\l
+gui_matrix
+2
+2
+1
+0
+0
+1
+End
+
+Matrix Frame
+true
+1
+2
+2
+A - '\l'
+B
+C
+D - '\l'
+
+gui_annotationBox
+1
+Apply The Definition of the Determinant.
+-40
+
+Expression Frame
+gui_label
+A - \l
+gui_label
+*
+gui_label
+D - \l
+gui_label
+-
+gui_label
+C
+gui_label
+*
+gui_label
+B
+End
+
+Matrix Frame
+false
+1
+1
+1
+AD - A'\l' - BC - D'\l' + '\l'^{2}
+

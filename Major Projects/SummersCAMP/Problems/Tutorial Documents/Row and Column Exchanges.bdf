@@ -1,0 +1,78 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+Row or Column Exchanges
+-40
+
+Matrix Frame
+false
+1
+2
+3
+a
+b
+c
+d
+e
+f
+
+gui_annotationBox
+7
+To perform a Row exchange, please follow these steps:
+-40
+
+-40
+1. Click on the row button for 1 of the rows.
+-40
+2. Click on the row button for the other of the rows.
+-40
+
+-40
+The result should look like the following :
+-40
+R_{0} <--> R_{1}
+-40
+
+Matrix Frame
+false
+-1
+2
+3
+d
+e
+f
+a
+b
+c
+
+gui_annotationBox
+7
+To perform a Column exchange, please follow these directions :
+-40
+
+-40
+1. Click on the Column button for 1 of the columns.
+-40
+2. Click on the Column button for the other column.
+-40
+
+-40
+The result should look like the following :
+-40
+C_{0} <--> C_{1}
+-40
+
+Matrix Frame
+false
+1
+2
+3
+e
+d
+f
+b
+a
+c
+

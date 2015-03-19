@@ -1,0 +1,403 @@
+A Math save file for use with the Summers Computer Aided Math program, written by Bryce Summers
+Version : 1
+
+gui_annotationBox
+1
+
+-1
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+
+gui_annotationBox
+1
+R_{1} --> R_{1}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+E
+F
+G
+H
+gui_label
+-
+gui_label
+\frac{E}{A}
+gui_matrix
+1
+4
+A
+B
+C
+D
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+I
+J
+K
+L
+M
+N
+O
+P
+
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+I
+J
+K
+L
+gui_label
+-
+gui_label
+\frac{-1}{ ia}
+gui_matrix
+1
+4
+A
+B
+C
+D
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+( iIa + A)/( ia)
+( iJa + B)/( ia)
+( iKa + C)/( ia)
+( iLa + D)/( ia)
+M
+N
+O
+P
+
+ShiftR
+5
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+I
+J
+K
+L
+gui_label
+-
+gui_label
+\frac{I}{A}
+gui_matrix
+1
+4
+A
+B
+C
+D
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+0
+(AJ - BI)/(A)
+(AK - CI)/(A)
+(AL - DI)/(A)
+M
+N
+O
+P
+
+gui_annotationBox
+1
+R_{3} --> R_{3}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+M
+N
+O
+P
+gui_label
+-
+gui_label
+\frac{M}{A}
+gui_matrix
+1
+4
+A
+B
+C
+D
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+0
+(AJ - BI)/(A)
+(AK - CI)/(A)
+(AL - DI)/(A)
+0
+(AN - BM)/(A)
+(AO - CM)/(A)
+(AP - DM)/(A)
+
+gui_annotationBox
+1
+R_{2} --> R_{2}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+0
+(AJ - BI)/(A)
+(AK - CI)/(A)
+(AL - DI)/(A)
+gui_label
+-
+gui_label
+\frac{AJ - BI}{A}
+gui_label
+/
+gui_label
+\frac{AF - BE}{A}
+gui_matrix
+1
+4
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+0
+0
+(A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ)/(A^{2}BE - A^{3}F)
+(A^{2}BEL - A^{2}BHI - A^{2}DEJ + A^{2}DFI - A^{3}FL + A^{3}HJ)/(A^{2}BE - A^{3}F)
+0
+(AN - BM)/(A)
+(AO - CM)/(A)
+(AP - DM)/(A)
+
+gui_annotationBox
+1
+R_{3} --> R_{3}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+0
+(AN - BM)/(A)
+(AO - CM)/(A)
+(AP - DM)/(A)
+gui_label
+-
+gui_label
+\frac{AN - BM}{A}
+gui_label
+/
+gui_label
+\frac{AF - BE}{A}
+gui_matrix
+1
+4
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+0
+0
+(A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ)/(A^{2}BE - A^{3}F)
+(A^{2}BEL - A^{2}BHI - A^{2}DEJ + A^{2}DFI - A^{3}FL + A^{3}HJ)/(A^{2}BE - A^{3}F)
+0
+0
+(A^{2}BEO - A^{2}BGM - A^{2}CEN + A^{2}CFM - A^{3}FO + A^{3}GN)/(A^{2}BE - A^{3}F)
+(A^{2}BEP - A^{2}BHM - A^{2}DEN + A^{2}DFM - A^{3}FP + A^{3}HN)/(A^{2}BE - A^{3}F)
+
+gui_annotationBox
+1
+R_{3} --> R_{3}
+-1
+
+Expression Frame
+gui_matrix
+1
+4
+0
+0
+(A^{2}BEO - A^{2}BGM - A^{2}CEN + A^{2}CFM - A^{3}FO + A^{3}GN)/(A^{2}BE - A^{3}F)
+(A^{2}BEP - A^{2}BHM - A^{2}DEN + A^{2}DFM - A^{3}FP + A^{3}HN)/(A^{2}BE - A^{3}F)
+gui_label
+-
+gui_label
+\frac{A^{2}BEO - A^{2}BGM - A^{2}CEN + A^{2}CFM - A^{3}FO + A^{3}GN}{A^{2}BE - A^{3}F}
+gui_label
+/
+gui_label
+\frac{A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ}{A^{2}BE - A^{3}F}
+gui_matrix
+1
+4
+0
+0
+(A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ)/(A^{2}BE - A^{3}F)
+(A^{2}BEL - A^{2}BHI - A^{2}DEJ + A^{2}DFI - A^{3}FL + A^{3}HJ)/(A^{2}BE - A^{3}F)
+End
+
+Matrix Frame
+false
+1
+4
+4
+A
+B
+C
+D
+0
+(AF - BE)/(A)
+(AG - CE)/(A)
+(AH - DE)/(A)
+0
+0
+(A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ)/(A^{2}BE - A^{3}F)
+(A^{2}BEL - A^{2}BHI - A^{2}DEJ + A^{2}DFI - A^{3}FL + A^{3}HJ)/(A^{2}BE - A^{3}F)
+0
+0
+0
+(2A^{7}BCEFHIN - 2A^{7}BCEFHJM + A^{6}B^{2}CE^{2}FIP - 2A^{7}BCEF^{2}IP + 2A^{7}BCE^{2}FJP + 2A^{7}BCEF^{2}LM - A^{6}B^{2}CE^{2}FLM - 2A^{7}BCE^{2}FLN - A^{6}B^{2}CE^{2}HIN + A^{6}B^{2}CE^{2}HJM - A^{6}B^{2}CE^{3}JP + A^{6}B^{2}CE^{3}LN - 2A^{7}BDEFGIN + 2A^{7}BDEFGJM - A^{6}B^{2}DE^{2}FIO + 2A^{7}BDEF^{2}IO - 2A^{7}BDE^{2}FJO + A^{6}B^{2}DE^{2}FKM - 2A^{7}BDEF^{2}KM + 2A^{7}BDE^{2}FKN + A^{6}B^{2}DE^{2}GIN - A^{6}B^{2}DE^{2}GJM + A^{6}B^{2}DE^{3}JO - A^{6}B^{2}DE^{3}KN + 2A^{7}B^{2}EFGIP - 2A^{8}BEFGJP - 2A^{7}B^{2}EFGLM + 2A^{8}BEFGLN - 2A^{7}B^{2}EFHIO + 2A^{8}BEFHJO + 2A^{7}B^{2}EFHKM - 2A^{8}BEFHKN - 3A^{7}B^{2}E^{2}FKP + 3A^{8}BEF^{2}KP + 3A^{7}B^{2}E^{2}FLO - 3A^{8}BEF^{2}LO - A^{6}B^{3}E^{2}GIP + A^{7}B^{2}E^{2}GJP + A^{6}B^{3}E^{2}GLM - A^{7}B^{2}E^{2}GLN + A^{6}B^{3}E^{2}HIO - A^{7}B^{2}E^{2}HJO - A^{6}B^{3}E^{2}HKM + A^{7}B^{2}E^{2}HKN + A^{6}B^{3}E^{3}KP - A^{6}B^{3}E^{3}LO - A^{8}BF^{2}GIP + A^{8}BF^{2}GLM + A^{8}BF^{2}HIO - A^{8}BF^{2}HKM - A^{8}CEF^{2}JP + A^{8}CEF^{2}LN - A^{8}CF^{2}HIN + A^{8}CF^{2}HJM + A^{8}CF^{3}IP - A^{8}CF^{3}LM + A^{8}DEF^{2}JO - A^{8}DEF^{2}KN + A^{8}DF^{2}GIN - A^{8}DF^{2}GJM - A^{8}DF^{3}IO + A^{8}DF^{3}KM + A^{9}F^{2}GJP - A^{9}F^{2}GLN - A^{9}F^{2}HJO + A^{9}F^{2}HKN - A^{9}F^{3}KP + A^{9}F^{3}LO)/(A^{6}B^{2}CE^{2}FI - 2A^{7}BCEF^{2}I + 2A^{7}BCE^{2}FJ - A^{6}B^{2}CE^{3}J + 2A^{7}B^{2}EFGI - 2A^{8}BEFGJ - 3A^{7}B^{2}E^{2}FK + 3A^{8}BEF^{2}K - A^{6}B^{3}E^{2}GI + A^{7}B^{2}E^{2}GJ + A^{6}B^{3}E^{3}K - A^{8}BF^{2}GI - A^{8}CEF^{2}J + A^{8}CF^{3}I + A^{9}F^{2}GJ - A^{9}F^{3}K)
+
+gui_annotationBox
+1
+We have now computed the Determinant for any 4 by 4 matrix!!
+-1
+
+Expression Frame
+gui_label
+A
+gui_label
+\frac{AF - BE}{A}
+gui_label
+\frac{A^{2}BEK - A^{2}BGI - A^{2}CEJ + A^{2}CFI - A^{3}FK + A^{3}GJ}{A^{2}BE - A^{3}F}
+gui_label
+\frac{2A^{7}BCEFHIN - 2A^{7}BCEFHJM + A^{6}B^{2}CE^{2}FIP - 2A^{7}BCEF^{2}IP + 2A^{7}BCE^{2}FJP + 2A^{7}BCEF^{2}LM - A^{6}B^{2}CE^{2}FLM - 2A^{7}BCE^{2}FLN - A^{6}B^{2}CE^{2}HIN + A^{6}B^{2}CE^{2}HJM - A^{6}B^{2}CE^{3}JP + A^{6}B^{2}CE^{3}LN - 2A^{7}BDEFGIN + 2A^{7}BDEFGJM - A^{6}B^{2}DE^{2}FIO + 2A^{7}BDEF^{2}IO - 2A^{7}BDE^{2}FJO + A^{6}B^{2}DE^{2}FKM - 2A^{7}BDEF^{2}KM + 2A^{7}BDE^{2}FKN + A^{6}B^{2}DE^{2}GIN - A^{6}B^{2}DE^{2}GJM + A^{6}B^{2}DE^{3}JO - A^{6}B^{2}DE^{3}KN + 2A^{7}B^{2}EFGIP - 2A^{8}BEFGJP - 2A^{7}B^{2}EFGLM + 2A^{8}BEFGLN - 2A^{7}B^{2}EFHIO + 2A^{8}BEFHJO + 2A^{7}B^{2}EFHKM - 2A^{8}BEFHKN - 3A^{7}B^{2}E^{2}FKP + 3A^{8}BEF^{2}KP + 3A^{7}B^{2}E^{2}FLO - 3A^{8}BEF^{2}LO - A^{6}B^{3}E^{2}GIP + A^{7}B^{2}E^{2}GJP + A^{6}B^{3}E^{2}GLM - A^{7}B^{2}E^{2}GLN + A^{6}B^{3}E^{2}HIO - A^{7}B^{2}E^{2}HJO - A^{6}B^{3}E^{2}HKM + A^{7}B^{2}E^{2}HKN + A^{6}B^{3}E^{3}KP - A^{6}B^{3}E^{3}LO - A^{8}BF^{2}GIP + A^{8}BF^{2}GLM + A^{8}BF^{2}HIO - A^{8}BF^{2}HKM - A^{8}CEF^{2}JP + A^{8}CEF^{2}LN - A^{8}CF^{2}HIN + A^{8}CF^{2}HJM + A^{8}CF^{3}IP - A^{8}CF^{3}LM + A^{8}DEF^{2}JO - A^{8}DEF^{2}KN + A^{8}DF^{2}GIN - A^{8}DF^{2}GJM - A^{8}DF^{3}IO + A^{8}DF^{3}KM + A^{9}F^{2}GJP - A^{9}F^{2}GLN - A^{9}F^{2}HJO + A^{9}F^{2}HKN - A^{9}F^{3}KP + A^{9}F^{3}LO}{A^{6}B^{2}CE^{2}FI - 2A^{7}BCEF^{2}I + 2A^{7}BCE^{2}FJ - A^{6}B^{2}CE^{3}J + 2A^{7}B^{2}EFGI - 2A^{8}BEFGJ - 3A^{7}B^{2}E^{2}FK + 3A^{8}BEF^{2}K - A^{6}B^{3}E^{2}GI + A^{7}B^{2}E^{2}GJ + A^{6}B^{3}E^{3}K - A^{8}BF^{2}GI - A^{8}CEF^{2}J + A^{8}CF^{3}I + A^{9}F^{2}GJ - A^{9}F^{3}K}
+End
+
+Matrix Frame
+false
+1
+1
+1
+AFKP - AFLO - AGJP + AGLN + AHJO - AHKN - BEKP + BELO + BGIP - BGLM - BHIO + BHKM + CEJP - CELN - CFIP + CFLM + CHIN - CHJM - DEJO + DEKN + DFIO - DFKM - DGIN + DGJM
+
