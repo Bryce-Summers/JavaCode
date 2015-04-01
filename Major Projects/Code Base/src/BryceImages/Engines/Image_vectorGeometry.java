@@ -125,6 +125,12 @@ public abstract class Image_vectorGeometry extends ColorCalculator
 		i_geoms();
 	}
 	
+	public void clear()
+	{
+		data.clear();
+		shapes.clear();
+	}
+	
 	// Allows the creation of this object with extra data.
 	public Image_vectorGeometry(int w, int h, boolean wait_to_i_geoms)
 	{
