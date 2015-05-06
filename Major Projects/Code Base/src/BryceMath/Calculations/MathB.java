@@ -295,4 +295,9 @@ public class MathB
 	{
 		return Math.min(max, Math.max(in, min));
 	}
+	
+	public static int bound(int in, int min, int max)
+	{
+		return Math.min(max, Math.max(in, min));
+	}
 }

@@ -1,4 +1,4 @@
-package Project.GameGrid;
+package Project.interfaces;
 
 /*
  * An interface that specifies functions that 

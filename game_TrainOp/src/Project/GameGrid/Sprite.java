@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * An object that associates images with locations in space.
  */
 
-public class Sprite 
+public class Sprite
 {
 
 	int x, y;

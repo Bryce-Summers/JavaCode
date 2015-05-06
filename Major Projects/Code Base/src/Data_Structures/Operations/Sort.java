@@ -1,5 +1,7 @@
 package Data_Structures.Operations;
 
+import Data_Structures.ADTs.Queue;
+import Data_Structures.Structures.List;
 import Data_Structures.Structures.InDevelopment.Heaps.ArrayHeap;
 
 /*
@@ -27,6 +29,7 @@ import Data_Structures.Structures.InDevelopment.Heaps.ArrayHeap;
  * FIXME : Perhaps I should implement some less efficient algorithms 
  *         like sequential sort in a separate library just for fun.
  * 
+ * FIXME : Implement Queue based merge sort: deq, deq, enq;
  */
 
 public class Sort
@@ -524,6 +527,53 @@ public class Sort
 		}
 		
 		return;
+	}
+	
+	
+	// FIXME : Test this out and think about whether to make it in terms of an abstract data type instead of a list.
+	// Think about reimplementing Lists sort function in terms of this function.
+	public <E extends Comparable<E>> List<E> msort(Queue<List<E>> Q)
+	{
+		while(Q.size() > 1)
+		{
+			Q.enq(merge(Q.deq(), Q.deq()));
+		}
+		
+		return Q.deq();
+	}
+	
+	// Destroys L1 and L2.
+	private <E extends Comparable<E>> List<E> merge(List<E> L1, List<E> L2)
+	{
+		List<E> output = new List<E>();
+		
+		while(!L1.isEmpty() && !L2.isEmpty())
+		{
+			E e1 = L1.getFirst();
+			E e2 = L2.getFirst();
+			
+			if(e1.compareTo(e2) <= 0)
+			{
+				output.add(e1);
+				L1.pop_front();
+			}
+			else
+			{
+				output.add(e2);
+				L2.pop_front();
+			}
+		}
+		
+		if(L1.isEmpty())
+		{
+			output.destructiveAppend(L2);
+		}
+		else
+		{
+			output.destructiveAppend(L1);
+		}
+		
+		return output;
 	}
 	
 }

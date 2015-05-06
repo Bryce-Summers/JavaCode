@@ -22,6 +22,10 @@ public class Game_input
 	// -- Local Variables.
 	public static int mouse_x, mouse_y;
 	
+	public final static int LEFT_MOUSE = MouseEvent.BUTTON1;
+	public final static int MIDDLE_MOUSE = MouseEvent.BUTTON2;
+	public final static int RIGHT_MOUSE = MouseEvent.BUTTON3;
+	
 	public static int mouse_button = 0;
 	
 	private Room data;

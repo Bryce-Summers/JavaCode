@@ -1,5 +1,6 @@
 package Images;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import BryceImages.Engines.Image_vectorGeometry;
@@ -19,6 +20,11 @@ public class ccHumpYardTrack extends Image_vectorGeometry
 	
 	boolean draw_rails = true;
 	boolean draw_background = true;
+	
+	
+	Color color_basalt = Colors.Color_hsv(0, 0, 70); 
+	Color color_outer_rails = Colors.Color_hsv(0, 0, 50); 
+	Color color_inner_rails = Colors.Color_hsv(00, 10, 100);
 	
 	
 	public ccHumpYardTrack(Dimension dim)
@@ -82,6 +88,12 @@ public class ccHumpYardTrack extends Image_vectorGeometry
 		double w = room_width;
 		double h = room_height;
 		
+		if(straight1 || straight2)
+		{
+			w *= 2;
+			h *= 2;
+		}
+		
 		double x1 = w/3;
 		double x2 = w*2/3;
 		
@@ -92,12 +104,12 @@ public class ccHumpYardTrack extends Image_vectorGeometry
 		if(draw_rails)
 		{
 			// Inner rails
-			set_color(Colors.Color_hsv(00, 100, 100));
+			set_color(color_inner_rails);
 			set_thickness(w/50);
 			drawRails(x1, x2, w, h, cut);
 			
 			// Outer rails
-			set_color(Colors.Color_hsv(0, 0, 50));
+			set_color(color_outer_rails);
 			set_thickness(w/30);
 			
 			drawRails(x1, x2, w, h, cut);
@@ -160,7 +172,7 @@ public class ccHumpYardTrack extends Image_vectorGeometry
 		double h_half = h/2;
 		
 		// The basalt.
-		set_color(Colors.Color_hsv(0, 0, 70));
+		set_color(color_basalt);
 				
 		if(straight1)
 			i_rect(v(w_half/2, 0), v(w_half/2, h_half), w_half*.25);

@@ -155,6 +155,8 @@ public class Game_looper
 	private class Drawer implements ActionListener
 	{	
 		
+		int step = 0;
+		
 		public void actionPerformed(ActionEvent e)
 		{			
 						
@@ -168,6 +170,11 @@ public class Game_looper
 			        RenderingHints.KEY_TEXT_ANTIALIASING,
 			        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			
+			// Antialias the buffered images.
+			graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+	                   RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+					
+			
 			// Start the drawing tree.
 			root_container.draw(g);
 
@@ -176,7 +183,14 @@ public class Game_looper
 			
 			// Draw the final rendered frame onto the output channel.
 			output.draw(frame_image);
-						
+			
+			// Try to amortize out the garbage collection.
+			/*
+			step++;
+			if(step % 100 == 0)
+			{
+				System.gc();
+			}*/
 		}
 	}
 

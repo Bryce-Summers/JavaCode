@@ -8,7 +8,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import util.ImageUtil;
-
 import BryceImages.Operations.Drawing;
 import BryceImages.Operations.ImageFactory;
 import BryceImages.Rendering.ColorCalculator;
@@ -17,11 +16,11 @@ import BryceMath.Calculations.Colors;
 import FrameSpecifications.ccDinnerTableItem;
 import FrameSpecifications.ccNegativeFeedback;
 import FrameSpecifications.ccPerlinBackground;
-import FrameSpecifications.ccTrainCar;
 import Game_Engine.Engine.Objs.ImageB;
 import Game_Engine.Engine.Objs.Room;
 import Game_Engine.Engine.engine.Game_output;
 import Game_Engine.GUI.Components.small.gui_label;
+import FrameSpecifications.ccTrainCar;
 import TrainTracks.ccHumpYardTrack;
 
 /*

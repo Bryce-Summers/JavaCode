@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.HashSet;
 
 import GUI.OBJ2D;
+import Game_Engine.Engine.Objs.Obj;
 import SimpleEngine.interfaces.KeyInput;
 import SimpleEngine.interfaces.MouseInput;
 import SimpleEngine.interfaces.OBJ;
@@ -25,6 +26,7 @@ public abstract class SimpleRoom extends OBJ2D implements Room
 		this.h = h;
 		
 		set = new HashSet<OBJ>();
+		
 	}
 	
 	public SimpleRoom(int w, int h)
@@ -35,6 +37,7 @@ public abstract class SimpleRoom extends OBJ2D implements Room
 		this.h = h;
 		
 		set = new HashSet<OBJ>();
+		
 	}
 
 	@Override
@@ -44,7 +47,8 @@ public abstract class SimpleRoom extends OBJ2D implements Room
 	}
 
 	@Override
-	public int getH() {
+	public int getH()
+	{
 		// TODO Auto-generated method stub
 		return h;
 	}
@@ -254,6 +258,27 @@ public abstract class SimpleRoom extends OBJ2D implements Room
 	// FIXME : This should be constrained to the bounding box of the room
 	public boolean mouseCollision(int x, int y)
 	{
+		
+		// Bounding box.
+		if(x < getX() || x >= getX() + w || y < getY() || y >= getY() + getH())
+		{
+			return false;
+		}
+		
+		// Try to send collision notifications to all of the sub objects first.
+		for(OBJ o : set)
+		{
+			if(o instanceof MouseInput)
+			{
+				MouseInput o2 = (MouseInput)o;
+				if(o2.mouseCollision(x, y))
+				{
+					return true;
+				}
+			}			
+		}		
+		
 		return true;
 	}
+	
 }

@@ -55,7 +55,7 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 	public ArrayHeap(UBA<E> data_in)
 	{
 		data = data_in.clone();
-		heapify(0);
+		heapify();
 	}
 
 	// -- Public interface functions.
@@ -74,7 +74,7 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 	{
 		int len = data.size();
 		data.add(elem);
-		heapify_up(len);
+		sift_up(len);
 	}
 	
 	public E peek_dominating()
@@ -97,7 +97,7 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 		// Maintain the minimum binary tree invariants.
 		E last = data.rem();
 		data.set(0, last);
-		heapify_linear(0);
+		sift_down(0);
 		
 		return output;
 	}
@@ -114,18 +114,11 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 	// Builds the heap invariant downwards to all sub trees.
 	// O(n), checks each node in the tree once.
 	// Transforms a random array into an array that meets the heap invariants.
-	private void heapify(int index)
+	private void heapify()
 	{
-		int len = data.size();
-		
-		for(int child = 1; child < D; child++)
+		for(int i = data.size() - 1; i >= 0; i--)
 		{
-			int child_index = index_child(index, child);
-			if(child_index < len)
-			{
-				heapify(child_index);
-				min_first(index, child_index);	
-			}
+			sift_down(i);
 		}
 
 	}
@@ -133,7 +126,8 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 	// Given an index, swaps the node down the tree while maintaining the min
 	// heap invariant until the node is in an invariant correct place.
 	// O(log(n)). Non recursive, so has O(1) function calls.
-	private void heapify_linear(int index)
+	// SIFT down.
+	private void sift_down(int index)
 	{
 		int size   = data.size();
 
@@ -177,15 +171,16 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 	}
 	
 	// Builds the heap invariant going up the tree from a given child node.
-	private void heapify_up(int index)
+	private void sift_up(int index)
 	{
+		int parent_index = index_parent(index); 
+		
 		// Root node is always at index 0.
-		if(index > 0)
+		while (index > 0 && min_first(parent_index, index))
 		{
-			int parent_index = index_parent(index);
-			min_first(parent_index, index);
-			heapify_up(parent_index);
-		}		
+			index = parent_index;
+			parent_index = index_parent(index);
+		}
 		
 	}
 	
@@ -205,7 +200,8 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 
 	// REQUIRES : index1 < index2.
 	// Performs a swap to fix heap invariant errors for the elements at the given indices.
-	private void min_first(int index1, int index2)
+	// Returns true iff the swap was performed.
+	private boolean min_first(int index1, int index2)
 	{
 		E elem1 = data.get(index1);
 		E elem2 = data.get(index2);
@@ -213,7 +209,10 @@ public class ArrayHeap<E extends Comparable<E>> extends Data_Structure<E> implem
 		if(elem1.compareTo(elem2) > 0)
 		{
 			data.swap(index1, index2);
+			return true;
 		}
+		
+		return false;
 	}
 
 	@Override
