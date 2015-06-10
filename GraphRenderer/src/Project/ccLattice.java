@@ -23,8 +23,8 @@ public class ccLattice extends ccGraph
 		
 		double block_size = w/size;
 		
-		return 	new Vector(block_size/2 + row*block_size,
-						   block_size/2 + col*block_size);
+		return 	new Vector(block_size/2 + col*block_size,
+						   block_size/2 + row*block_size);
 	}
 
 }

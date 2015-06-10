@@ -37,8 +37,8 @@ public class aaTrainOp extends MainRoom
 		// Render the track images.
 		Spr.renderTracks();
 		
-		//new aaTrainOp("Train Ops!", 1200, 800);
-		new aaTrainOp("Train Ops!", 1920, 1080);
+		new aaTrainOp("Train Ops!", 1200, 800);
+		//new aaTrainOp("Train Ops!", 1920, 1080);
 	}
 	
 	public aaTrainOp(String gameName, int w, int h)

@@ -348,7 +348,7 @@ public class Sort
 		data[index_2] = temp;
 	}
 	
-	// Returns the median of three integers in an array.
+	// Returns the index of the median of three integers in an array.
 	private static int median3(int[] data, int i1, int i2, int i3)
 	{
 		int output;
@@ -364,13 +364,13 @@ public class Sort
 		}
 		
 		// Find the minimum of the two greater elements two.
-		if(data[output] < data[i2])
+		if(data[output] < data[i3])
 		{
 			return output;
 		}
 		else
 		{
-			return i2;
+			return i3;
 		}
 
 	}
@@ -392,13 +392,13 @@ public class Sort
 		}
 		
 		// Find the minimum of the two greater elements two.
-		if(data[output].compareTo(data[i2]) < 0)
+		if(data[output].compareTo(data[i3]) < 0)
 		{
 			return output;
 		}
 		else
 		{
-			return i2;
+			return i3;
 		}
 
 	}
