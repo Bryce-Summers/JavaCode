@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import util.interfaces.Action;
 import BryceImages.Operations.ImageFactory;
-import GUI.ImageObj;
 import GUI.UI_Button;
 import GUI.UI_SelectionButton;
 import GUI.UI_Slider;
@@ -17,9 +16,7 @@ import Project.GameGrid.Grid;
 import Project.GameGrid.gridSquare;
 import Project.GameGrid.gui_LogicMapping;
 import Project.fonts.FontManager;
-import Project.interfaces.Consumer;
 import SimpleEngine.MainRoom;
-import SimpleEngine.interfaces.OBJ;
 
 /*
  * This class sets up the main game room.
@@ -38,7 +35,7 @@ public class aaTrainOp extends MainRoom
 		Spr.renderTracks();
 		
 		new aaTrainOp("Train Ops!", 1200, 800);
-		//new aaTrainOp("Train Ops!", 1920, 1080);
+		// new aaTrainOp("Train Ops!", 1920, 1080);
 	}
 	
 	public aaTrainOp(String gameName, int w, int h)

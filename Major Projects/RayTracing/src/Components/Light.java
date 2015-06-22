@@ -37,7 +37,7 @@ public class Light
 	
 	// Computes the intensity of a photon emitted from this light source
 	// after it has traveled the given distance.
-	// FIXME : Have seprate components for specular emittance and diffuse emmitance.
+	// FIXME : Have separate components for specular emittance and diffuse emmitance.
 	photonColor specular(double distance)
 	{
 		double factor = attenuation(distance);

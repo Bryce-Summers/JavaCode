@@ -349,62 +349,91 @@ public class Sort
 	}
 	
 	// Returns the index of the median of three integers in an array.
-	private static int median3(int[] data, int i1, int i2, int i3)
+	private static int median3(int[] array, int index1, int index2, int index3)
 	{
-		int output;
+	
+		int max;
+		int not_max_1;
+		int not_max_2;
 		
-		// Find the max of the first two.
-		if(data[i1] > data[i2])
+		// Find the maximum element and the two non maximum elements.
+		if(array[index1] > array[index2])
 		{
-			output = i1;
+			max = index1;
+			not_max_1 = index2;
 		}
 		else
 		{
-			output = i2;
+			max = index2;
+			not_max_1 = index1;
 		}
 		
-		// Find the minimum of the two greater elements two.
-		if(data[output] < data[i3])
+		if(array[max] > array[index3])
 		{
-			return output;
+			not_max_2 = index3;
 		}
 		else
 		{
-			return i3;
+			not_max_2 = max;
+			max = index3;
+		}
+		
+		// Return the maximum of the two non maximal elements.
+		if(array[not_max_1] < array[not_max_2])
+		{
+			return not_max_2;
+		}
+		else
+		{
+			return not_max_1;
 		}
 
 	}
 	
 	// Returns the median of three integers in an array.
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static int median3(Comparable[] data, int i1, int i2, int i3)
+	private static int median3(Comparable[] array, int index1, int index2, int index3)
 	{
-		int output;
+		int max;
+		int not_max_1;
+		int not_max_2;
 		
-		// Find the max of the first two.
-		if(data[i1].compareTo(data[i2]) > 0)
+		// Find the maximum element and the two non maximum elements.
+		if(array[index1].compareTo(array[index2]) > 0)
 		{
-			output = i1;
+			max = index1;
+			not_max_1 = index2;
 		}
 		else
 		{
-			output = i2;
+			max = index2;
+			not_max_1 = index1;
 		}
 		
-		// Find the minimum of the two greater elements two.
-		if(data[output].compareTo(data[i3]) < 0)
+		if(array[max].compareTo(array[index3]) > 0)
 		{
-			return output;
+			not_max_2 = index3;
 		}
 		else
 		{
-			return i3;
+			not_max_2 = max;
+			max = index3;
 		}
-
+		
+		// Return the maximum of the two non maximal elements.
+		if(array[not_max_1].compareTo(array[not_max_2]) < 0)
+		{
+			return not_max_2;
+		}
+		else
+		{
+			return not_max_1;
+		}
+		
 	}
 	
-	// FIXME : This function could be implemented with fewer array lookups.
 	
+	// FIXME : This function could be implemented with fewer array lookups.
 	// Checks whether an array of integers is sorted in O(num_columns) time;
 	public static boolean is_sorted(int[] data)
 	{

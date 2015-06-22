@@ -92,7 +92,8 @@ public class Camera
 		// Scale them appropriately to create a standard width and height of the aperture.
 		int factor = (int) Math.min(image_w, image_h);
 				
-		// Now create the vector that represents the initial ray direction from the Camera to the Scene at this location.
+		// Now create the vector that represents the initial ray direction from the Camera
+		// to the Scene at this location.
 		Vector dz = i.mult(x/factor).add(j.mult(y/factor)).add(k.mult(zoom));
 		
 		dz = dz.norm();
