@@ -1,0 +1,54 @@
+I need to have the grid Squares know about cars.
+
+I need to improve the interface for building tracks.
+
+Improve the visual appeal of the grid.
+
+
+Do not show the ghost images when the user moves the mouse outside of the grid.
+
+Do not allow the user to build curves that run off of the grid.
+Handle edge cases for cars and tracks.
+
+
+Add undo functionality.
+
+
+Implement Creating long pieces of straight by dragging.
+
+Golan mentioned that it was annoying to remove. What he was actually noticing was that I introduced a bug into the program.
+
+Try to find away to properly alias the jaggies that are still present in my project.
+
+
+I have done good work in preparation for demo day.
+
+
+
+Save the Date
+Coming out simulator
+5,000 days is the best
+
+Palm Reader project
+
+Get around limitations by treating them like game mechanics.
+
+Project a Chicken on a hand.
+New Jersey Tansit grade intersection problem.
+Mini Metro
+
+Enable surprises. Don't make everything so deterministic.
+
+Abstract Form animations. Add a settle state and control.
+
+Make the image for Golan and other stuff.
+
+
+
+Technology is driving the bus. Take a break and start getting the art to drive the bus.
+
+Water bears.
+
+0
+
+Fits law. The longer we move our mouse and the smaller the target, the harder it is.

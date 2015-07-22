@@ -35,10 +35,11 @@ public interface IterB<E> extends Iterator<E>
 	// Returns true if the iterator has a current node that it is pointing to.
 	public abstract boolean hasCurrent();
 	
-	// Returns the current node that this iterB is pointing to.
-	// Should be called after a hasCurrent call.
-	// Returns the last element that was returned, even if it has been removed.
-	// Returns the replacement node, if it has been replaced.
+	/** Returns the current node that this iterB is pointing to.
+	 *  Should be called after a hasCurrent call.
+	 *  Returns the last element that was returned, even if it has been removed.
+	 *  Returns the replacement node, if it has been replaced.
+	 */
 	public abstract E current();
 	
 	// Returns whether there is an element in the structure before this one.
@@ -58,12 +59,18 @@ public interface IterB<E> extends Iterator<E>
 	// Replaces the last element that was returned from the implementing structure with the given element.
 	public abstract void replace(E elem);
 	
-	// Inserts an element after the last element that has been called.
-	// The iterator will now point to this new element.
+	/** Inserts an element after the last element that has been called.
+	 *  The iterator will now point to this new element.
+	 * 
+	 * @param elem
+	 */
 	public abstract void insertAfter(E elem);
 	
-	// Inserts and element before the last element that has been called.
-	// The iterator will now point to this new element.
+	/** Inserts an element before the last element that has been called.
+	 * The iterator will now point to this new element.
+	 * 
+	 * @param elem
+	 */
 	public abstract void insertBefore(E elem);
 
 	// Enables iterator objects to override the default clone function.

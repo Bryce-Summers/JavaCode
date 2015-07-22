@@ -149,7 +149,7 @@ public class Vector
 			output_data[i] /= input;
 		}
 		
-		output.magnitude= mag() * input;
+		output.magnitude= mag() / input;
 		output.magChanged = false;
 		
 		return output;

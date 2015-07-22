@@ -127,11 +127,11 @@ public class imageMain
 		SpriteLoader.render1();
 		//gui_button b = new gui_button(0, 0, 300, 50);
 		//gui_button b = new gui_button(0, 0, 2048, 1152);
-		gui_button b = new gui_button(0, 0, 3400, 500);
+		gui_button b = new gui_button(0, 0, 1920, 300);
 		//b.setColor()
 		
-		b.setText("By Bryce Summers");
-		b.setTextSize(250);
+		b.setText("Letters Made out of Shapes.");
+		b.setTextSize(75);
 		b.setColor(Colors.Color_hsv(0, 0, 100));
 		
 		ImageUtil.saveImage(b, "ImageMainSavedImage");

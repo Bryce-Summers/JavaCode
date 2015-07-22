@@ -32,7 +32,22 @@ public class photonColor
 		red   = color.getRed()/255.0;
 		green = color.getGreen()/255.0;
 		blue  = color.getBlue()/255.0;
-	}	
+	}
+	
+	// Create from color space integers.
+	public photonColor(int red, int green, int blue)
+	{
+		this.red = red/255.0;
+		this.green = green/255.0;
+		this.blue = blue/255.0;
+	}
+	
+	public photonColor(photonIrradiance input)
+	{
+		red   = input.red;
+		green = input.green;
+		blue  = input.blue;
+	}
 	
 	private photonColor(double r, double g,  double b)
 	{
@@ -95,6 +110,22 @@ public class photonColor
 		return new photonColor(r, g, b);
 	}
 	
+	public photonColor sub(photonColor ... others)
+	{
+		double r = red;
+		double g = green;
+		double b = blue;
+		
+		for(photonColor other : others)
+		{
+			r -= other.red;
+			g -= other.green;
+			b -= other.blue;
+		}
+		
+		return new photonColor(r, g, b);		
+	}
+	
 	public Object clone()
 	{
 		return new photonColor(red, green, blue);
@@ -117,4 +148,36 @@ public class photonColor
 		blue  = Math.min(blue, 1.0);
 		
 	}
+
+	public void addTo(photonIrradiance irradiance)
+	{
+		irradiance.red   += red;
+		irradiance.green += green;
+		irradiance.blue  += blue;
+	}
+	
+	public void addScaledTo(photonIrradiance irradiance, double scalar)
+	{
+		irradiance.red   += red*scalar;
+		irradiance.green += green*scalar;
+		irradiance.blue  += blue*scalar;
+	}
+	
+	
+	public photonIrradiance toIrradiance()
+	{
+		photonIrradiance output = new photonIrradiance();
+		
+		output.red   = red;
+		output.green = green;
+		output.blue  = blue;
+
+		return output;
+	}
+
+	public double getMagnitude()
+	{
+		return Math.sqrt(red*red + green*green + blue*blue);
+	}
+	
 }

@@ -1,6 +1,6 @@
 package Components;
 
-import BryceMath.DoubleMath.Vector;
+import Math.Vector3;
 
 /*
  * Written on 12 - 27 - 2014.
@@ -14,9 +14,9 @@ public class Camera
 {
 
 	// A Camera is a a location and looks towards a focus point.
-	private Vector location, focus;
+	private Vector3 location, focus;
 	
-	private Vector up;
+	private Vector3 up;
 	
 	// The zoom factor that controls the spread on the distribution of rays.
 	private double zoom;
@@ -27,13 +27,13 @@ public class Camera
 	
 	// These vectors are orthogonal unit vectors that span 3d space and are aligned with this camera
 	// and the image that it will generate.
-	Vector i, j, k;
+	Vector3 i, j, k;
 	
 	
 	// Rendering properties such as reflectance depth.
 	private int reflectance_depth;
 			
-	public Camera(Vector location, Vector focus, Vector up, double zoom,
+	public Camera(Vector3 location, Vector3 focus, Vector3 up, double zoom,
 		int image_w, int image_h,
 		int reflectance_depth)
 	{
@@ -78,12 +78,12 @@ public class Camera
 	// REQUIRES : The x and y locations in screen pixel space.
 	// ENSURES : Returns the point at which the ray will begin.
 	// This can be changed to specify the properties of the camera, 2D, 3D.	
-	public Vector getPoint(double x, double y)
+	public Vector3 getPoint(double x, double y)
 	{
 		return location;
 	}
 	
-	public Vector getDirection(double x, double y)
+	public Vector3 getDirection(double x, double y)
 	{
 		// Center the vectors on the middle of the screen.
 		x -= half_w;
@@ -94,7 +94,7 @@ public class Camera
 				
 		// Now create the vector that represents the initial ray direction from the Camera
 		// to the Scene at this location.
-		Vector dz = i.mult(x/factor).add(j.mult(y/factor)).add(k.mult(zoom));
+		Vector3 dz = i.mult(x/factor).add(j.mult(y/factor)).add(k.mult(zoom));
 		
 		dz = dz.norm();
 		return dz;

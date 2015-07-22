@@ -112,12 +112,14 @@ public class Display extends JPanel
 			g2.fillRect(0, 0,w,h);
 			g2.drawImage(image, 0, 0, w, h, 0, 0, w, h, null);
 			
+			
+			
 			// Now draw the screen buffer onto the JPanel.
 			g = getGraphics();
 			
 			if(g != null)
 			{
-				g.drawImage(screen, 0, 0, w, h, null);
+				g.drawImage(screen, 0, 0, null);
 			}
 		}
 	}// End of Stepy
