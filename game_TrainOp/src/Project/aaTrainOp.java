@@ -54,6 +54,7 @@ public class aaTrainOp extends MainRoom
 		
 		// -- The Tool tip. Replace with a movable textbox.
 		UI_TextBox box = new UI_TextBox(0, menu_y/4, 400, 32, "Please Click on a Button");
+		final UI_TextBox message_box = box;
 		box.setFont(FontManager.block_label);
 		addOBJ(box);
 		
@@ -86,13 +87,27 @@ public class aaTrainOp extends MainRoom
 		addOBJ(box);
 		
 		
-		BufferedImage down_arrow = Spr.arrow_icon[0];
+		//BufferedImage down_arrow = Spr.arrow_icon[0];
+		/*
 		UI_TextBox label = new UI_TextBox(x + 150 - down_arrow.getWidth()/2,
 				menu_y + 64 + separation/2, "", down_arrow);
+		*/
+				
+		{
+			UI_Button b;
 		
+			b = new UI_SelectionButton(getW() - 32 - 16, 16, "X", ImageFactory.blank(32,  32));
+			b.setAction(() -> System.exit(0));
+			
+			String message = "Exit Program";
+			b.setOnMouseMove(() -> do_and_move(() -> message_box.setText(message), message_box, getW() - message_box.getW() - 64, b.getY()));
+			b.setFont(FontManager.font_LOGIC_BLOCK);
+			addOBJ(b);
+			
+		}
 		
 		//label.setFont(FontManager.font_LOGIC_BLOCK);
-		addOBJ(label);
+		//addOBJ(label);
 
 	}
 	
@@ -174,8 +189,8 @@ public class aaTrainOp extends MainRoom
 			addOBJ(b);
 			x2 += 64;
 		}
-				
 		
+				
 		int w = x2 - x;
 		
 		
@@ -324,7 +339,8 @@ public class aaTrainOp extends MainRoom
 			b.setAction(() -> world.setDirection(index));
 
 			String message = gridSquare.getMessageForTrackIndex(i) + " switching.";
-			b.setOnMouseMove(() -> do_and_move(() -> box.setText(message), box, b.getX(), b.getY()));
+			// The '32' makes sure the the message box does not cover up the 'EXIT' X button.
+			b.setOnMouseMove(() -> do_and_move(() -> box.setText(message), box, b.getX() - 32, b.getY()));
 			
 			// Hotkey mapping and visual display.
 			// Special case for 0. <7,8,9,0>
