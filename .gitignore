@@ -46,3 +46,12 @@ Temporary Items
 
 *.snap
 .metadata/.plugins/org.eclipse.core.resources/.projects/BusyCorpVerticalTransport/.markers.snap
+*.properties
+*.tis
+.recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments.gen
+*.gen
+.recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments.gen
+*.gen
+*.gen
+.recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments.gen
+.recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments_n
