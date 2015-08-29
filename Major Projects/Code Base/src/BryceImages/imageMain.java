@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import util.ImageUtil;
+import BryceImages.ColorCalculators.ccCircleAliasing;
 import BryceImages.ColorCalculators.ccHeart;
 import BryceImages.GUI.Display;
 import BryceImages.Rendering.ColorCalculator;
 import BryceImages.Rendering.StartRender;
 import BryceMath.Calculations.Colors;
-
 import Game_Engine.GUI.SpriteLoader;
 import Game_Engine.GUI.Components.small.gui_button;
 
@@ -29,10 +29,10 @@ public class imageMain
 	public static void main(String[] args)
 	{
 		// Render an image in a JPanel using my rendering code.
-		//startNormal();
+		startNormal();
 		
 		// Directly create and save an image using my Graphic User Interface Rendering pipeline.
-		generateGUIImage();
+		//generateGUIImage();
 		
 	}
 	
@@ -45,7 +45,7 @@ public class imageMain
 		// Store the dimensions of the user's computer screen.
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		// Set the GUI widow to a custom dimension.
-		dim = new Dimension(1500, 1500);
+		dim = new Dimension(1080, 1080);
 		
 		// Decide which ColorCalculator we want to render.
 		//ColorCalculator cc = new ccAliased(dim);
@@ -90,11 +90,12 @@ public class imageMain
 		//ColorCalculator cc = new ccACM(dim);
 		//ColorCalculator cc = new ccField(dim);
 		//ColorCalculator cc = new ccFunction(dim);
-		ColorCalculator cc = new ccHeart(dim);
+		//ColorCalculator cc = new ccHeart(dim);
 		// cc = new ccBoring(dim);
 		
 		//ColorCalculator cc = new ccCurve(dim);
 		
+		ColorCalculator cc = new ccCircleAliasing(dim);
 		
 		
 		/*

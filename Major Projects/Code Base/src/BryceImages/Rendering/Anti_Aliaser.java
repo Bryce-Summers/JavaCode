@@ -92,7 +92,7 @@ class Anti_Aliaser extends Thread
 		subCoordinates = new double[anti_aliasing];
 		for(int k = 0; k < anti_aliasing; k++)
 		{
-			subCoordinates[k] = 1.0*k/anti_aliasing ;//- 2.0/antiAliasing;
+			subCoordinates[k] = 1.0*k/anti_aliasing;//- 2.0/antiAliasing;
 		}
 		
 		// Pre-computations.
@@ -111,7 +111,7 @@ class Anti_Aliaser extends Thread
 		
 		if(await_completion)
 		{
-			// Implement if it is desired that all calling threads are suspended untill rendering completes.
+			// Implement if it is desired that all calling threads are suspended until rendering completes.
 			try
 			{
 				latch.await();
@@ -273,7 +273,15 @@ class Anti_Aliaser extends Thread
 			else
 			{
 				// Calculate subColor
-				c = cc.getColor(x + subCoordinates[xx], y + subCoordinates[yy]);
+				
+				// Randomized sampling.
+				//double x_coord = x + Math.random(); //subCoordinates[xx];
+				//double y_coord = y + Math.random(); //subCoordinates[yy];
+				
+				double x_coord = x + subCoordinates[xx];
+				double y_coord = y + subCoordinates[yy];
+				
+				c = cc.getColor(x_coord, y_coord);
 			}
 			
 			// Add each component of the Current Color weighted by its alpha value to the proper variable.

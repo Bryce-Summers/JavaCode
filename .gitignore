@@ -55,3 +55,4 @@ Temporary Items
 *.gen
 .recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments.gen
 .recommenders/index/http___download_eclipse_org_recommenders_models_luna_/segments_n
+.recommenders/caches/identified-project-coordinates.json

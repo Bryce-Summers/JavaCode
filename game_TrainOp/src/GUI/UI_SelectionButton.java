@@ -15,26 +15,26 @@ public class UI_SelectionButton extends UI_Button
 {
 
 	public static UI_SelectionButton focus = null;
-	
+
 	// -- Constructor.
 	public UI_SelectionButton(int x, int y, String str, BufferedImage ... images)
 	{
 		super(x, y, str, images);
 	}
-	
+
 	public void mouseR(int x, int y)
 	{
 		super.mouseR(x, y);
-		
+
 		if(focus != null)
 		{
 			focus.resetColor();
 		}
-				
+
 		focus = this;
 		setSelectedColor();
 	}
-	
+
 	public void select()
 	{
 		mouseR(x + 1, y + 1);

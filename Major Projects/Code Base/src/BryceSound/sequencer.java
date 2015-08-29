@@ -1,14 +1,11 @@
 package BryceSound;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
+import BryceSound.Waveforms.scExp1;
 import BryceSound.Waveforms.scSine;
 import Data_Structures.Structures.UBA;
 import Data_Structures.Structures.InDevelopment.PriorityQueues.ArrayHeapPQ;
 import Data_Structures.Structures.InDevelopment.PriorityQueues.PQNode;
-import Game_Engine.Engine.Objs.Obj_Container;
-import Game_Engine.Engine.Objs.actionLogging.Command;
 
 public class sequencer extends soundCalculator
 {
@@ -99,7 +96,7 @@ public class sequencer extends soundCalculator
 		{
 			if(time == starts.get(index))
 			{
-				addSample(new scSine(pitches.get(index)), durations.get(index));
+				addSample(new scExp1(pitches.get(index)), durations.get(index));
 				index++;
 			}
 		}

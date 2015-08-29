@@ -120,9 +120,7 @@ public class aaTrainOp extends MainRoom
 	// Returns width.
 	private int gui_logic_blocks(int x, int y, Grid world, UI_TextBox box)
 	{
-		
-
-		
+				
 		int y2 = y; // 64*2;
 		
 		int x2 = x;

@@ -89,7 +89,7 @@ public abstract class soundCalculator
 	// Sound Primitives.
 	public double sin(double frequency, double x, double volume)
 	{
-		changeFrequency(frequency);
+		//changeFrequency(frequency);
 		return volume * Math.sin(x*Math.PI *2 * frequency/SAMPLING_RATE);
 	}
 	
@@ -122,4 +122,8 @@ public abstract class soundCalculator
 		frequency = new_f;
 	}
 	
+	public double getFrequency()
+	{
+		return frequency;
+	}
 }

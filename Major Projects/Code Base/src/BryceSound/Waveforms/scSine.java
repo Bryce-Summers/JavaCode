@@ -5,7 +5,6 @@ import BryceSound.soundCalculator;
 public class scSine extends soundCalculator
 {
 
-		
 	public scSine(double frequency)
 	{
 		changeFrequency(frequency);
@@ -15,12 +14,10 @@ public class scSine extends soundCalculator
 	public short getVal()
 	{
 		
-		double output = square(frequency, x, volume);
-
+		double output = sin(frequency, x, volume);
+			
+		
 		return (short) output;
 
 	}
-	
-
-	
 }
