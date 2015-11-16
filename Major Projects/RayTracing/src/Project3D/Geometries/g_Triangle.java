@@ -75,8 +75,7 @@ public class g_Triangle extends Geometry
 
 		
 		// The part that determines the constraining of the set within the plane.
-		
-		
+				
 		Vector3 point_on_plane = getPointOnRay(R_pos, R_dir, t);
 		
 		

@@ -20,7 +20,7 @@ public class image_CornellBox extends World
 	{
 		super(dim);
 		
-		antiAliasing = 5;
+		antiAliasing = 3;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class image_CornellBox extends World
 		Material mat_red = new Material(
 				1.5,
 				100.0,
-				new photonColor(Color.RED),
+				new photonColor(Color.RED).mult(.9),
 				new photonColor(Ball_specular)
 				);
 		
@@ -59,18 +59,26 @@ public class image_CornellBox extends World
 				new photonColor(Ball_specular)
 				);
 		
-		Material mat_yellow = new Material(
+		Material mat_white = new Material(
 				1.5,
 				100.0,
-				new photonColor(Color.YELLOW), 
+				//new photonColor(Color.YELLOW),
+				new photonColor(Color.WHITE).mult(.7),
 				new photonColor(Ball_specular)
 				);
 		
 		Material mat_blue = new Material(
 				1.5,
 				100.0,
-				new photonColor(new Color(200, 200, 200)), 
+				new photonColor(Color.BLUE).mult(.9), 
 				new photonColor(Ball_specular)
+				);
+		
+		Material mat_black = new Material(
+				1.5,
+				100.0,
+				new photonColor(Color.BLACK), 
+				new photonColor(Color.BLACK)
 				);
 		
 		Material mat_sphere1 = new Material(
@@ -103,25 +111,25 @@ public class image_CornellBox extends World
 		output[0] = new g_Triangle(mat_red, p112, p111, p122, false);
 		output[1] = new g_Triangle(mat_red, p111, p121, p122, false);
 		
-		output[2] = new g_Triangle(mat_green, p211, p212, p222, false);
-		output[3] = new g_Triangle(mat_green, p211, p222, p221, false);
+		output[2] = new g_Triangle(mat_blue, p211, p212, p222, false);
+		output[3] = new g_Triangle(mat_blue, p211, p222, p221, false);
 		
-		output[4] = new g_Triangle(mat_yellow, p121, p111, p221, false);
-		output[5] = new g_Triangle(mat_yellow, p111, p211, p221, false);
+		output[4] = new g_Triangle(mat_white, p121, p111, p221, false);
+		output[5] = new g_Triangle(mat_white, p111, p211, p221, false);
 		
-		output[6] = new g_Triangle(mat_blue, p111, p112, p212, false);
-		output[7] = new g_Triangle(mat_blue, p111, p212, p211, false);
+		output[6] = new g_Triangle(mat_white, p111, p112, p212, false);
+		output[7] = new g_Triangle(mat_white, p111, p212, p211, false);
 		
-		output[8] = new g_Triangle(mat_yellow, p112, p122, p222, false);
-		output[9] = new g_Triangle(mat_yellow, p212, p112, p222, false);
+		output[8] = new g_Triangle(mat_white, p112, p122, p222, false);
+		output[9] = new g_Triangle(mat_white, p212, p112, p222, false);
 		
-		double radius = .3;
+		double radius = .4;
 		output[10] = new g_Sphere(mat_sphere1, new Vector3(.5, .4, 1.0 - radius), radius);
 		output[11] = new g_Sphere(mat_sphere2, new Vector3(-.3, -.3, 1.0 - radius), radius);
 		
 		// -- Front Wall.
-		output[12] = new g_Triangle(mat_blue, p122, p121, p222, false);
-		output[13] = new g_Triangle(mat_blue, p222, p121, p221, false);
+		output[12] = new g_Triangle(mat_black, p122, p121, p222, false);
+		output[13] = new g_Triangle(mat_black, p222, p121, p221, false);
 		
 
 		return output;
@@ -130,10 +138,16 @@ public class image_CornellBox extends World
 	@Override
 	protected Light[] getLights()
 	{
-		Light[] output = new Light[2];
+		Light[] output = new Light[1];
 		
-		output[0] = new Light(new Vector3(.1, -.9, 0),  new photonColor(Color.WHITE), .0001, .002);
+		output[0] = new Light(new Vector3(0, 0, -.9),  new photonColor(Color.WHITE).mult(.5), .0001, .002);
+		//output[0].setRadius(1.0);		
+		
+		/*
 		output[1] = new Light(new Vector3(-.1, -.9, 0),  new photonColor(Color.WHITE), .0001, .002);
+		output[1].setRadius(1.0);
+		*/
+		
 		//output[1] = new Light(new Vector3(-4, 0, -11), new photonColor(Color.WHITE), .0001, .002);
 		
 		return output;

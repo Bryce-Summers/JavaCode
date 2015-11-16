@@ -48,9 +48,9 @@ public class imageMain
 		dim = new Dimension(1000, 1000);
 		
 		ColorCalculator cc;
-		//cc = new ReflectanceSpheres(dim);
+		cc = new ReflectanceSpheres(dim);
 		//cc = new image_CornellBox(dim);
-		cc = new image_space_Elevator(dim);
+		//cc = new image_space_Elevator(dim);
 				
 		//StartRender r = new StartRender(true);
 			

@@ -6,9 +6,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-import Worlds.ReflectanceSpheres;
-import Worlds.image_CornellBox;
-import Worlds.image_space_Elevator;
 import BryceImages.GUI.Display;
 import BryceImages.Rendering.ColorCalculator;
 import BryceImages.Rendering.StartRender;
@@ -48,7 +45,7 @@ public class imageMain
 		dim = new Dimension(1000, 1000);
 
 		// 100 thousand photons is a good number for testing.
-		ColorCalculator cc = new scene_SimpleCircleScene(1000, 1000, 1000000, 5.0);
+		ColorCalculator cc = new scene_lines(1000, 1000, 300000, 30.0);
 
 		Display panel = startRenderPanel(dim, cc);
 

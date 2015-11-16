@@ -1,8 +1,6 @@
 package Project_PhotonTracer2D.Geometries;
 
-import Components.Geometry;
 import Components.Material;
-import Components.photonColor;
 import Math.Vector3;
 import Project3D.Geometries.g_Sphere;
 
@@ -29,5 +27,4 @@ public class g_Circle extends g_Sphere
 		
 		return new Vector3(x, y).norm();	
 	}
-
 }

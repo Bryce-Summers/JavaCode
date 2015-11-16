@@ -105,6 +105,7 @@ public abstract class World extends ColorCalculator
 		photonColor illumination = photonColor.BLACK;
 		
 		// Reflected and Refracted light.
+		// Indirect illumination.
 		if(depth > 1)
 		{
 
@@ -134,13 +135,18 @@ public abstract class World extends ColorCalculator
 				illumination = illumination.add(transmission);
 					
 			}
-			
-			
+						
 			// Trace a random vector for global illumination.
 			Vector3 random_hemisphere = Vector_math.random_hemi(normal);
 			photonColor global = Raytrace(surface_point.add(random_hemisphere.mult(epsilon)), random_hemisphere, depth - 1, refractive_index);
 			
-			global = global.mult(.5);
+			//global = global.mult(1.0/(4*Math.PI/3/2));
+			
+			double BRDF = 2*normal.dot(random_hemisphere);
+			//System.out.println(BRDF);
+			//System.out.println(diffuse);
+			global = global.mult(BRDF);
+			global = global.mult(mat.diffuse);
 			
 			illumination = illumination.add(global);
 			
@@ -170,13 +176,15 @@ public abstract class World extends ColorCalculator
 			double specular_factor_d = Math.max(0.0, light_reflectance.dot(toViewer));
 			photonColor specular_factor = mat.specular.mult(Math.pow(specular_factor_d, mat.shininess));
 			
-			photonColor diffuse  = L.diffuse(distance) .mult(mat.diffuse.mult(Math.max(0.0, toLight.dot(normal))));
+			photonColor diffuse = L.diffuse(toLight_mag);
+			double BRDF = 2*normal.dot(toLight);
+			//System.out.println(BRDF);
+			//System.out.println(diffuse);
+			diffuse = diffuse.mult(BRDF);
+			diffuse = diffuse.mult(mat.diffuse);
 			
-			diffuse = diffuse.mult(.5);
-			
-			photonColor specular = L.specular(distance).mult(specular_factor);
-			
-			illumination = illumination.add(diffuse, specular);
+						
+			illumination = illumination.add(diffuse);
 		}
 		
 		return illumination.mult(attenuation(distance));

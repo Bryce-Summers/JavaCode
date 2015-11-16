@@ -11,6 +11,7 @@ import Components.Material.Bounce_Type;
 import Components.photonColor;
 import Math.Vector3;
 import Math.Vector_math;
+import Project_PhotonTracer2D.Geometries.g_line;
 
 /*
  * Describes a 2 Dimensional Scene.
@@ -30,6 +31,9 @@ public abstract class Scene extends ColorCalculator
 	protected Geometry[] geometries = null;
 	protected Light[] lights = null;	
 	
+	// Used when beams to not hit any geometry.
+	private Geometry[] screen_bounds;
+	
 	IrradianceCache irradiance;
 	
 	Light current_light = null;	
@@ -40,6 +44,7 @@ public abstract class Scene extends ColorCalculator
 	
 		initialize_geometry();
 		initialize_lights();
+		initialize_screen_bounds();
 		
 		if(geometries == null)
 		{
@@ -74,11 +79,32 @@ public abstract class Scene extends ColorCalculator
 		
 		
 		irradiance.scale_exposure(exposure);
-
+		
 	}
 	
 	protected abstract void initialize_geometry();
 	protected abstract void initialize_lights();
+	
+	private void initialize_screen_bounds()
+	{
+		screen_bounds = new Geometry[4];
+		
+		Material mat_absorb = new Material(1.0, 1.0, photonColor.BLACK, photonColor.BLACK);
+		
+		int w = getWidth();
+		int h = getHeight();
+		Vector3 v1 = new Vector3(1,1);
+		Vector3 v2 = new Vector3(w - 2, 1);
+		Vector3 v3 = new Vector3(w - 2, h - 2);
+		Vector3 v4 = new Vector3(1, h - 2);
+		
+		screen_bounds[0] = new g_line(mat_absorb, v1, v2);
+		screen_bounds[1] = new g_line(mat_absorb, v2, v3);
+		screen_bounds[2] = new g_line(mat_absorb, v3, v4);
+		screen_bounds[3] = new g_line(mat_absorb, v4, v1);
+
+
+	}
 
 	@Override
 	public Color getColor(double x, double y)
@@ -109,9 +135,15 @@ public abstract class Scene extends ColorCalculator
 	{		
 		Geometry geom = Geometry.visible(src,  direction, geometries);
 		
-		// Going off into space, no collision.
 		if(geom == null)
 		{
+			geom = detect_bound_collision(src, direction);
+		}
+		
+		// Going off into space, no collision.
+		if(geom == null)
+		{	
+			
 			return;
 			//throw new Error("Not possible, because we surround the scene with impermeable walls.");
 		}
@@ -287,5 +319,18 @@ public abstract class Scene extends ColorCalculator
 		return current_light.attenuation(distance);
 	}
 
-	
+	Geometry detect_bound_collision(Vector3 ray_point, Vector3 ray_dir)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			Geometry bound = screen_bounds[i];
+			if(bound.computeDistance(ray_point, ray_dir) > 0)
+			{
+				return bound;
+			}
+		}
+		
+		// It should not get here.
+		return null;
+	}
 }

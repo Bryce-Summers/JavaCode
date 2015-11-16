@@ -21,8 +21,8 @@ public class Light
 	photonColor irradiance;
 	
 	
-	double radius = 0.0;
-	boolean three_dimensions = false;
+	double radius = .1;
+	boolean three_dimensions = true;
 	
 	/**
 	 * 
@@ -65,7 +65,16 @@ public class Light
 	
 	Vector3 last_dir = null;
 	public Vector3 getLocation()
-	{		
+	{	
+		/*
+		double size = .3;
+		double dx = Math.random()*size - size/2;
+		double dy = Math.random()*size - size/2;
+		
+		return position.add(new Vector3(dx, dy, 0));
+		*/
+		
+		
 		Vector3 dir = computeRandomVector();
 		last_dir = dir;
 						
@@ -73,6 +82,7 @@ public class Light
 		double dist = Math.random()*radius;
 		
 		return position.add(dir.mult(dist));
+		
 	}
 	
 	// Returns a probability weighted direction.
@@ -88,6 +98,7 @@ public class Light
 	{
 		if(three_dimensions)
 		{
+			//return Vector_math.random_hemi(new Vector3(0, 0, 1));
 			return Vector_math.random_dir();
 		}
 		else

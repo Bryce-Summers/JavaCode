@@ -210,6 +210,9 @@ public class gui_MatrixInput extends Obj implements Input<Matrix<Equation>>
 		{
 			populateInput(original_matrix);
 			getBox(0).toggle();
+			column_num_box.populateInput(original_matrix.getColNum());
+			row_num_box.populateInput(original_matrix.getRowNum());			
+			
 			return;
 		}
 		
