@@ -90,8 +90,8 @@ public class ReflectanceSpheres extends World
 	{
 		Light[] output = new Light[2];
 		
-		output[0] = new Light(new Vector3(4, 0, -11),  new photonColor(Color.WHITE), .0001, .002);
-		output[1] = new Light(new Vector3(-4, 0, -11), new photonColor(Color.WHITE), .0001, .002);
+		output[0] = new Light(new Vector3(4, 0, -11),  new photonColor(Color.WHITE).mult(.8), .0001, .002);
+		output[1] = new Light(new Vector3(-4, 0, -11), new photonColor(Color.WHITE).mult(.8), .0001, .002);
 		
 		return output;
 	}

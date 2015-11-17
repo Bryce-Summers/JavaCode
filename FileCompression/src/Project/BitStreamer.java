@@ -52,14 +52,14 @@ public class BitStreamer
 	}
 	
 	// Reset's the stream, flips the data array pointers,
-	//
+	// Returns the size of the stream in bits.
 	public int reset_stream()
 	{
 		byte_index     = 0;
 		bit_index      = 0;
 		dest_bit_index = 0;
 		
-		dest.clear();		
+		dest.clear();
 		
 		return src.size()*SIZE_OF_BYTE;		
 	}
@@ -67,11 +67,14 @@ public class BitStreamer
 	// Converts the dest stream to the src stream.
 	public void flipStream()
 	{
+		// We need to pad dest with bits so that all bits are left justified inside bytes.
+		padDest();		
 		UBA<Byte> temp = src;
 		src  = dest;
 		dest = temp;
 	}
 	
+
 	public int streamBits(int numBits)
 	{
 		int output = 0;
@@ -94,11 +97,11 @@ public class BitStreamer
 			return false;
 		}
 		
-		// Extract bit.
-		int result_int = (src.get(byte_index) & (1 << (SIZE_OF_BYTE - bit_index)));
-					
-		boolean result = (result_int != 0);
+
+		//System.out.println("byte_index = " + byte_index + ", bit_index = " + bit_index);
 		
+		boolean result = (src.get(byte_index) >>> (SIZE_OF_BYTE - 1 - bit_index) & 1) != 0;
+					
 		// Move to the next bit.
 		bit_index++;
 		if(bit_index >= SIZE_OF_BYTE)
@@ -122,13 +125,14 @@ public class BitStreamer
 	
 	public void writeBit(boolean bit)
 	{		
-		System.out.print(bit ? "1" : 0);
 				
 		byte b = (byte) (bit ? 1 : 0);
 		
+		//System.out.println("Bit : " + b);
+		
 		// Add a new byte every time we reach the beginning of a bit.
 		if(dest_bit_index == 0)
-		{
+		{			
 			dest.add(b);
 			dest_bit_index++;
 			return;
@@ -137,10 +141,29 @@ public class BitStreamer
 		byte last = dest.get(dest.size() - 1);
 		last = (byte) ((last << 1) | b);
 		
-		dest.set(dest.size() - 1, last);
+		//printByte(last);
 		
-		dest_bit_index = (dest_bit_index + 1) % SIZE_OF_BYTE;				
+		dest.set(dest.size() - 1, last);
+		dest_bit_index = (dest_bit_index + 1) % SIZE_OF_BYTE;	
 	}
 	
+	private void padDest() {
+	
+		while(dest_bit_index != 0)
+		{
+			writeBit(false);
+		}
+		
+	}
+	
+	private void printByte(byte b)
+	{
+		for(int i = 0; i < 8; i++)
+			System.out.print((b >>> (8 - 1 - i) & 1) != 0 ? "1" : "0");
+		System.out.println("");
+		//System.out.println(Integer.toBinaryString(b));
+	}
+	
+
 	
 }
