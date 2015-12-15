@@ -33,6 +33,7 @@ public class ImageUtil
 	//-- Candidate image types include, "PNG, "GIF", and "JPG."
 	public static void saveImage(BufferedImage image, String name)
 	{	
+		System.out.println("now Saving : " + name);
 		try
 		{
 			// Compute the index of the '.' in a standard file name.
@@ -172,6 +173,19 @@ public class ImageUtil
 		g2.setRenderingHint(
 			        RenderingHints.KEY_FRACTIONALMETRICS,
 			        RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+	}
+	
+	public static BufferedImage loadImage(File file)
+	{
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(file);
+		} catch (IOException e)
+		{
+			throw new Error("Image file was not loaded.");
+		}
+		
+		return img;
 	}
 	
 }
