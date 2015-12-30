@@ -6,7 +6,7 @@ This is where my most recent java code. As such I cannot guranteed that all of t
 because I gradually change things and don't fix older projects unless I decided to do some more work on them.
 I am planning to gradually separate these projects into separate repositories in the future which will make them more stable and will allow me to write more specific documetation for each of them in the hope that someone out there might want to use them.
 
-# Notable projects
+# Notable Projects
 Here is a writeup of some 'featured' projects contained within this repository in the hope of helping you the reader to get excited enough about this conglomerate repository to delve into it and discover the cool things hidden inside of it.
 
 # Code Base
