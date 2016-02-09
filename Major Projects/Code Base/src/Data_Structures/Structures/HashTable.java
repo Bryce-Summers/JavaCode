@@ -105,7 +105,8 @@ public class HashTable<E> extends Data_Structure<E> implements SimpleSet<E>
 	// -- Exposed public functions.
 
 	// Inserts the given element, if it is not already in the hash table.
-	public void insert(E input)
+	// Returns fals iff the element was already in the hash table.
+	public boolean insert(E input)
 	{
 		int val = hash(input);
 		
@@ -114,13 +115,14 @@ public class HashTable<E> extends Data_Structure<E> implements SimpleSet<E>
 		// Do not insert duplicates.
 		if(chain.contains(input))
 		{
-			return;
+			return false;
 		}
 		
 		chain.add(input);
 		
 		proccessInsertion();
 		
+		return true;
 	}
 	
 	// Queries whether the given element is in the table.

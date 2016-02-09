@@ -1,14 +1,20 @@
 package BryceImages;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import util.FullFontExporter;
 import util.ImageUtil;
+import util.StringParser;
 import BryceImages.ColorCalculators.ccCircleAliasing;
 import BryceImages.ColorCalculators.ccHeart;
+import BryceImages.ColorCalculators.RayMarching.BryceMath;
 import BryceImages.GUI.Display;
+import BryceImages.Operations.ImageFactory;
 import BryceImages.Rendering.ColorCalculator;
 import BryceImages.Rendering.StartRender;
 import BryceMath.Calculations.Colors;
@@ -29,10 +35,10 @@ public class imageMain
 	public static void main(String[] args)
 	{
 		// Render an image in a JPanel using my rendering code.
-		startNormal();
+		//startNormal();
 		
 		// Directly create and save an image using my Graphic User Interface Rendering pipeline.
-		//generateGUIImage();
+		generateGUIImage();
 		
 	}
 	
@@ -122,21 +128,9 @@ public class imageMain
 	
 	private static void generateGUIImage()
 	{
-		System.out.println("Image Generation has Started");
+		FullFontExporter.exportBryceFont2();
 		
-		// Initialize the GUI Library.
-		SpriteLoader.render1();
-		//gui_button b = new gui_button(0, 0, 300, 50);
-		//gui_button b = new gui_button(0, 0, 2048, 1152);
-		gui_button b = new gui_button(0, 0, 1920, 300);
-		//b.setColor()
 		
-		b.setText("Letters Made out of Shapes.");
-		b.setTextSize(75);
-		b.setColor(Colors.Color_hsv(0, 0, 100));
-		
-		ImageUtil.saveImage(b, "ImageMainSavedImage");
-		System.out.println("Image Generation is Successful!");
 	}
 
 	// -- Setup the basic Operating system windows.

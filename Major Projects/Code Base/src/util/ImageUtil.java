@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -174,6 +175,30 @@ public class ImageUtil
 			        RenderingHints.KEY_FRACTIONALMETRICS,
 			        RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 	}
+	
+	/**
+	 * 
+	 * @param size
+	 * @param cap_constant   e.g. BasicStroke.CAP_BUTT
+	 * @param join_constant  e.g. BasicStroke.JOIN_ROUND
+	 */
+	public static void setStrokeSize(Graphics2D g2, float size, int cap_constant, int join_constant)
+	{
+		// Increase the width of the lines.
+		BasicStroke stroke =
+		        new BasicStroke(size,
+		                        cap_constant,
+		                        join_constant,
+		                        size);
+				
+		g2.setStroke(stroke);
+	}
+	
+	public static void setStrokeSize(Graphics2D g2, float size)
+	{
+		setStrokeSize(g2, size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
+	}
+
 	
 	public static BufferedImage loadImage(File file)
 	{

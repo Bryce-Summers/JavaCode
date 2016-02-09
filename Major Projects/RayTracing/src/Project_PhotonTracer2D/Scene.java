@@ -62,6 +62,8 @@ public abstract class Scene extends ColorCalculator
 		
 		int GRANULARITY = 10000;
 		
+		long start = System.nanoTime();
+		
 		int numLights = lights.length;
 		for(int light = 0; light < numLights; light++)
 		{
@@ -71,12 +73,15 @@ public abstract class Scene extends ColorCalculator
 			for(int j = 0; j < num_photons_per_light; j++)
 			{
 				if(j % GRANULARITY == (GRANULARITY - 1))
-				System.out.println("" + (j + 1)/GRANULARITY + " * " + GRANULARITY + " beams done.");
+				{}//System.out.println("" + (j + 1)/GRANULARITY + " * " + GRANULARITY + " beams done.");
 				
 				shootPhoton();
 			}
 		}
 		
+		long end = System.nanoTime();
+		
+		System.out.println(end - start);
 		
 		irradiance.scale_exposure(exposure);
 		

@@ -329,19 +329,24 @@ public class gui_look_and_feel extends obj_glidable implements SerialImageB
 	
 	// -- Data Serialization.
 	
+	// Creates an image that is the embodiment of this gui element's look on screen, complete with all text etc.
 	@Override
 	public BufferedImage serializeImage()
 	{
 		BufferedImage image  = ImageFactory.blank(getW(), getH());
+		serializeOntoImage(image);
+		return image;
+	}
+	
+	// Draws this Element onto another image.
+	public void serializeOntoImage(BufferedImage image)
+	{
 		ImageB 		  imageb = new ImageB(image);
-		
-		
+			
 		AffineTransform AT = new AffineTransform();
 		AT.translate(getX(), getY());
 
-		draw(imageb, AT);
-		
-		return image;
+		draw(imageb, AT);	
 	}
 	
 	// Overrides the draw borders flag if neccessary for when the mouse is in the region.

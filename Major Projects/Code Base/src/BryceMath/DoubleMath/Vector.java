@@ -16,7 +16,6 @@ public class Vector
 	private static int y = 1;
 	private static int z = 2;
 	
-
 	public double[] data;// An array that will store all of the Vector's components.
 	public final int length;
 	
