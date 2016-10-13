@@ -1,8 +1,5 @@
 package BryceSound;
 
-import java.util.Iterator;
-
-import Data_Structures.Structures.List;
 import Data_Structures.Structures.UBA;
 
 /* Synthesizer class.

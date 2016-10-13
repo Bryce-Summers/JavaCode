@@ -15,18 +15,25 @@ public class synthesizer implements Runnable
 	soundCalculator sc;
 
 	
-    final int SAMPLING_RATE = 44100;  // Audio sampling rate
+    final int SAMPLING_RATE = 1411;//44100;  // Audio sampling rate
     final int SAMPLE_SIZE   = 2;      // Audio sample size in bytes	
 	
-    
+    short[] data;
+        
 	public synthesizer(soundCalculator sc)
 	{
 		this.sc = sc;
 		sc.setSampleRate(SAMPLING_RATE);
+		data = null;
 		Thread T = new Thread(this);
 		T.start();
-		//this.run();
-
+	}
+	
+	public synthesizer(short[] sound_data)
+	{
+		data = sound_data;
+		Thread T = new Thread(this);
+		T.start();
 	}
 	
 	
@@ -81,11 +88,19 @@ public class synthesizer implements Runnable
     	  cBuf.clear();                            // Discard samples from previous pass
 	         
     	  // Figure out how many samples we can add
-    	  int ctSamplesThisPass = line.available()/SAMPLE_SIZE;   
+    	  int ctSamplesThisPass = line.available()/SAMPLE_SIZE;
 	      for (int i=0; i < ctSamplesThisPass; i++)
 	      {
-	    	  cBuf.putShort(sc.getWaveVal());
+	    	  if(data == null)
+	    	  {
+	    		  cBuf.putShort(sc.getWaveVal());
+	    	  }
+	    	  else if(sample_number < data.length)
+	    	  {
+	    		  cBuf.putShort(data[sample_number]);
+	    	  }
 
+	    	  
 	    	  fCyclePosition += fCycleInc;
 	    	  if (fCyclePosition > 1)
 	    		  fCyclePosition -= 1;
@@ -112,8 +127,8 @@ public class synthesizer implements Runnable
 
 
 	      //Done playing the whole waveform, now wait until the queued samples finish 
-	      //playing, then clean up and exit
-	      line.drain();                                         
+	      //playing, then clean up and exit.
+	      line.drain();                                 
 	      line.close();
 	   }
 	}
