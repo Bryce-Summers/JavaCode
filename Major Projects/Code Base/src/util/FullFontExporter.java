@@ -7,6 +7,7 @@ import BryceImages.ColorCalculators.RayMarching.BryceMath;
 import BryceImages.Operations.ImageFactory;
 import Game_Engine.GUI.SpriteLoader;
 import Game_Engine.GUI.Components.small.gui_button;
+import Game_Engine.GUI.Components.small.gui_label;
 
 public class FullFontExporter
 {
@@ -93,4 +94,38 @@ public class FullFontExporter
 		ImageUtil.saveImage(output, "BryceFont2.png");
 		System.out.println("Image Generation is Successful!");
 	}
+	
+	public static void exportBryceFontString(String str) 
+	{
+		System.out.println("Generating a Bryce font String!");
+		
+		// Initialize the GUI Library.
+		SpriteLoader.render1();
+		//gui_button b = new gui_button(0, 0, 300, 50);
+		//gui_button b = new gui_button(0, 0, 2048, 1152);
+
+		int w = 9000;
+		int h = 1000;
+		BufferedImage output = ImageFactory.blank(w, h);
+
+		gui_label b = new gui_button(0, 0, w, h);
+		b.setTextSize(300);
+		b.setText(str);
+		b.setColor(new Color(0xffffff));
+		//b.setColor(new Color(0x000000));
+		//b.disableTEX();
+		b.serializeOntoImage(output);
+			
+		/*
+		//b.setColor()
+		
+		b.setText("Letters Made out of Shapes.");
+		b.setTextSize(75);
+		b.setColor(Colors.Color_hsv(0, 0, 100));
+		*/
+			
+		ImageUtil.saveImage(output, "message.png");
+		System.out.println("Image Generation is Successful!");
+	}
+	
 }

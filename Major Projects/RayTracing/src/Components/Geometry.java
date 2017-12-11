@@ -1,6 +1,7 @@
 package Components;
 
 import Math.Vector3;
+import Project_PhotonTracer2D.Geometry2D.Box;
 
 
 /*
@@ -23,6 +24,8 @@ public abstract class Geometry
 	private Vector3 incoming_dir = null;
 	
 	public Vector3  normal 		  = null;
+	
+	private Box _AABB = null;
 	
 	public Geometry(Material mat)
 	{

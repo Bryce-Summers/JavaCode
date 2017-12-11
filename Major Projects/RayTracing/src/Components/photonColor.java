@@ -179,5 +179,10 @@ public class photonColor
 	{
 		return Math.sqrt(red*red + green*green + blue*blue);
 	}
+
+	public static photonColor lerp(photonColor path_start, photonColor path_end, double time) {
+		// TODO Auto-generated method stub
+
+	}
 	
 }

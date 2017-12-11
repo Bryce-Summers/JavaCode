@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import Worlds.ReflectanceSpheres;
-import Worlds.image_CornellBox;
+import Worlds.image_cornellBox;
 import Worlds.image_space_Elevator;
 import BryceImages.GUI.Display;
 import BryceImages.Rendering.ColorCalculator;

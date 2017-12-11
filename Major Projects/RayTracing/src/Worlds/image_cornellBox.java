@@ -13,10 +13,10 @@ import Math.Vector3;
 import Project3D.Geometries.g_Sphere;
 import Project3D.Geometries.g_Triangle;
 
-public class image_CornellBox extends World
+public class image_cornellBox extends World
 {
 
-	public image_CornellBox(Dimension dim)
+	public image_cornellBox(Dimension dim)
 	{
 		super(dim);
 		
@@ -156,7 +156,7 @@ public class image_CornellBox extends World
 	@Override
 	public Object clone()
 	{
-		return new image_CornellBox(dim);
+		return new image_cornellBox(dim);
 	}
 
 }

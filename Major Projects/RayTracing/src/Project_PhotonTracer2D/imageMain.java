@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import BryceImages.GUI.Display;
 import BryceImages.Rendering.ColorCalculator;
 import BryceImages.Rendering.StartRender;
+import Project_Painting.scene_nypl;
+import Project_PhotonTracer2D.images.scene_SimpleCircleScene;
 
 
 
@@ -42,10 +44,12 @@ public class imageMain
 		// Store the dimensions of the user's computer screen.
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		// Set the GUI widow to a custom dimension.
-		dim = new Dimension(1000, 1000);
+		dim = new Dimension(1920, 1080);
 
 		// 100 thousand photons is a good number for testing.
-		ColorCalculator cc = new scene_lines(1000, 1000, 300000, 30.0);
+		//ColorCalculator cc = new scene_lines(1000, 1000, 300000, 30.0);
+		ColorCalculator cc = new scene_nypl(1000, 1000);
+		//ColorCalculator cc = new scene_BryceVisuality(dim);
 
 		Display panel = startRenderPanel(dim, cc);
 

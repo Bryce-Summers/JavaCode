@@ -4,6 +4,7 @@ import Components.Geometry;
 import Components.Material;
 import Components.photonColor;
 import Math.Vector3;
+import Project_PhotonTracer2D.Geometry2D.Box;
 
 /* 2D Line Class
  * 

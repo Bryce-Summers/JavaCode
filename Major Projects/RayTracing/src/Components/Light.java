@@ -8,6 +8,14 @@ import Math.Vector_math;
  * Written on 12 / 27 / 2014.
  * 
  * Purpose : This class represents a light used in a raytracing scene specification.
+ * 
+ * A light is an object that defines a spectrum of possible photons and samples from it.
+ * 
+ * A photon is conceptualized as follows:
+ *  - Location.
+ *  - Direction.
+ *  - Maximum Distance to Travel.
+ *  - Maximum number of bounces.
  */
 
 
@@ -92,6 +100,11 @@ public class Light
 	{		
 		//return computeRandomHemiVector();
 		return computeRandomVector();
+	}
+	
+	public int getBounceLimit()
+	{
+		return 3;// FIXME
 	}
 	
 	private Vector3 computeRandomVector()

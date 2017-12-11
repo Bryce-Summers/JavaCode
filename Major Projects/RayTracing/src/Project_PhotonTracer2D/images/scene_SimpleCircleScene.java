@@ -1,4 +1,4 @@
-package Project_PhotonTracer2D;
+package Project_PhotonTracer2D.images;
 
 import Components.Geometry;
 import Components.Light;
@@ -6,6 +6,7 @@ import Components.Material;
 import Components.photonColor;
 import Math.Vector3;
 import Project_PhotonTracer2D.Geometries.g_Circle;
+import Project_PhotonTracer2D.Rendering.Scene;
 
 /*
  * A Scene for testing my 2D ray Tracer.
@@ -29,8 +30,8 @@ public class scene_SimpleCircleScene extends Scene
 		photonColor white = photonColor.WHITE;
 				
 		// Conservation of energy dictates that these value cannot add to more than 255 in any channel.
-		photonColor specular     = white;//new photonColor(255, 0, 0);
-		photonColor diffuse      = black;//new photonColor(0, 205, 0);
+		photonColor specular     = black;//new photonColor(255, 0, 0);
+		photonColor diffuse      = white;//new photonColor(0, 205, 0);
 		photonColor transmission = black;//new photonColor(200, 50, 255);
 		
 		// 255 - the sum is the coefficient of absorption.

@@ -1,4 +1,4 @@
-package Project_PhotonTracer2D;
+package Project_PhotonTracer2D.images;
 
 import Components.Geometry;
 import Components.Light;
@@ -7,6 +7,7 @@ import Components.photonColor;
 import Math.Vector3;
 import Project_PhotonTracer2D.Geometries.g_Circle;
 import Project_PhotonTracer2D.Geometries.g_line;
+import Project_PhotonTracer2D.Rendering.Scene;
 
 /*
  * A Scene for testing my 2D ray Tracer.
@@ -15,17 +16,37 @@ import Project_PhotonTracer2D.Geometries.g_line;
 
 public class scene_lines extends Scene
 {
+	int numPhotons;
+	double exposure;
 
+	Geometry[] geometries;
+	Light[] lights;
+	
 	public scene_lines(int width, int height, int num_photons_per_light, double exposure)
 	{
-		super(width, height, num_photons_per_light, exposure);
+		super(width, height);
+		
+		this.numPhotons = num_photons_per_light;
+		this.exposure   = exposure;
 	}
 
+	@Override
+	protected void makeImage()
+	{
+		initialize_geometry();
+		initialize_lights();
+		
+		for(Light l: lights)
+		{
+			shoot
+		}
+	}
+	
 	@Override
 	protected void initialize_geometry()
 	{
 		geometries = new Geometry[3];
-		
+	 
 		photonColor black = photonColor.BLACK;
 		photonColor white = photonColor.WHITE;
 				

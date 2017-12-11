@@ -107,6 +107,40 @@ public class Vector3
 
 	}
 	
+	public Vector3 min(Vector3 input)
+	{
+		Vector3 output = new Vector3(data);
+		
+		double[] input_data	 = input.getData();
+		double[] output_data = output.getData();
+		
+		int i = 0;
+		for(double val: input_data)
+		{
+			output_data[i] = Math.min(output_data[i], val);
+			i++;
+		}
+				
+		return output;
+	}
+	
+	public Vector3 max(Vector3 input)
+	{
+		Vector3 output = new Vector3(data);
+		
+		double[] input_data	 = input.getData();
+		double[] output_data = output.getData();
+		
+		int i = 0;
+		for(double val: input_data)
+		{
+			output_data[i] = Math.max(output_data[i], val);
+			i++;
+		}
+				
+		return output;
+	}
+	
 	// The dot, or inner product of two vectors.
 	public double dot( Vector3 input )
 	{
@@ -228,6 +262,21 @@ public class Vector3
 	public double getZ()
 	{
 		return data[z];
+	}
+	
+	public void setX(double val)
+	{
+		data[x] = val;
+	}
+	
+	public void setY(double val)
+	{
+		data[y] = val;
+	}
+	
+	public void setZ(double val)
+	{
+		data[z] = val;
 	}
 	
 	// An efficient magnitude calculation function that recalculates if the internal vector has changed.
@@ -423,4 +472,57 @@ public class Vector3
 		return v(Math.cos(Math.toRadians(angle)),- Math.sin(Math.toRadians(angle)));
 	}
 	
+    // returns true iff this point is less than the input point on every dimension.
+	public boolean lessThan(Vector3 pt)
+    {
+    	for(int i = 0; i < data.length; i++)
+    	{
+    		if(!(this.data[i] < pt.data[i]))
+    		{
+    			return false;
+    		}
+    	}
+    	
+        return true;
+    }
+
+    public boolean lessThanOrEqual(Vector3 pt)
+    {
+    	for(int i = 0; i < data.length; i++)
+    	{
+    		if(!(this.data[i] <= pt.data[i]))
+    		{
+    			return false;
+    		}
+    	}
+    	
+        return true;
+    }
+
+    // returns true iff this point is greater than the input point on ever dimension.
+    public boolean greaterThan(Vector3 pt)
+    {
+    	for(int i = 0; i < data.length; i++)
+    	{
+    		if(!(this.data[i] > pt.data[i]))
+    		{
+    			return false;
+    		}
+    	}
+	
+    	return true;
+    }
+
+    public boolean greaterThanOrEqual(Vector3 pt)
+    {
+    	for(int i = 0; i < data.length; i++)
+    	{
+    		if(!(this.data[i] >= pt.data[i]))
+    		{
+    			return false;
+    		}
+    	}
+    	
+        return true;
+    }
 }

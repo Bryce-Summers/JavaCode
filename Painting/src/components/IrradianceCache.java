@@ -1,10 +1,7 @@
-package Project_PhotonTracer2D;
+package components;
+
 
 import java.awt.Color;
-
-import Components.photonColor;
-import Components.photonIrradiance;
-
 
 /*
  * Stores Irradiance Values.
@@ -14,6 +11,7 @@ import Components.photonIrradiance;
 
 public class IrradianceCache
 {
+	int w, h;
 	
 	// Row major ordered.
 	photonIrradiance[][] values;
@@ -32,6 +30,23 @@ public class IrradianceCache
 		}
 		
 		maximums = new photonIrradiance();
+		
+		this.w = w;
+		this.h = h;
+	}
+	
+	public void clear()
+	{
+		for(int r = 0; r <= h; r++)
+		for(int c = 0; c <= w; c++)
+		{
+			photonIrradiance irr = values[r][c];
+			irr.red   = 0.0;
+			irr.green = 0.0;
+			irr.blue  = 0.0;
+		}
+			
+		maximums = new photonIrradiance();
 	}
 	
 	public void addIrradiance(int x, int y, photonColor color, double scalar, boolean invert)
@@ -42,6 +57,11 @@ public class IrradianceCache
 			int temp = x;
 			x = y;
 			y = temp;
+		}
+		
+		if(y < 0 || x < 0)
+		{
+			System.out.println("Someone had blundered.");
 		}
 		
 		photonIrradiance val = values[y][x];
@@ -98,4 +118,29 @@ public class IrradianceCache
 		maximums.blue /= scalar;
 	}
 	
+	int getWidth()
+	{
+		return w;
+	}
+	
+	int getHeight()
+	{
+		return h;
+	}
+
+	// Normalizes the irradiance_work values, adds them to this cache, and bounds the values to 1.0.
+	public void normalizeAndAdd(IrradianceCache irradiance_work)
+	{
+		for(int r = 0; r <= h; r++)
+		for(int c = 0; c <= w; c++)
+		{
+			photonIrradiance dest = values[r][c];
+			photonIrradiance src = irradiance_work.values[r][c];
+			photonIrradiance src_scale = irradiance_work.maximums;
+			
+			dest.scaleAddBoundIrradiance(src, src_scale);
+			this.maximums.maximize(dest);
+		}		
+	}
+		
 }

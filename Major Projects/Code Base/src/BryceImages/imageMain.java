@@ -128,9 +128,9 @@ public class imageMain
 	
 	private static void generateGUIImage()
 	{
-		FullFontExporter.exportBryceFont2();
+		//FullFontExporter.exportBryceFont2();
 		
-		
+		FullFontExporter.exportBryceFontString("Bryce Works");
 	}
 
 	// -- Setup the basic Operating system windows.

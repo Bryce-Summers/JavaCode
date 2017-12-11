@@ -1,4 +1,4 @@
-package Project_PhotonTracer2D;
+package Project_PhotonTracer2D.Rendering;
 
 import java.awt.Color;
 
@@ -12,83 +12,64 @@ import Components.photonColor;
 import Math.Vector3;
 import Math.Vector_math;
 import Project_PhotonTracer2D.Geometries.g_line;
+import Project_PhotonTracer2D.Geometry2D.Ray;
+import geometry.BVH2D;
+
 
 /*
- * Describes a 2 Dimensional Scene.
+ * Provides rendering functionality to the subclassed image generators.
  * 
- * Written by Bryce Summers on 7/16/2015.
+ * Features:
+ * 
+ * Rendering and rasterization:
+ *  - Maintains a final irradiance cache that will specify the final image.
+ *  - Maintains a working irradiance cache that can be used to generate each portion of the image.
+ *  - Grafts the working irradiance cache onto the final cache.
+ *
+ *  - Given a set of 2D geometries adds a customizable portion of the photon's path to the working irradiance cache.
+ *  
+ * Geometry and Light Generation.
+ *  - Provides capabilities for generating geometry and light.
+ *  - Helpful rendering functions for a given light and geometry.
+ *  
+ *  What does this class need to know? What are the photons, how far do they go, and what are the geometric constraints?
  */
 
 public abstract class Scene extends ColorCalculator
 {
 	final static double epsilon = .00000001;
 	
-	protected int recursion_limit = 3;
-	
 	// Bounds for the viewing window.
 	int x1, x2, y1, y2;
 	
-	protected Geometry[] geometries = null;
-	protected Light[] lights = null;	
-	
 	// Used when beams to not hit any geometry.
 	private Geometry[] screen_bounds;
+	private BVH2D scene_geometry;
+
+	// Caches the current work.
+	private IrradianceCache irradiance_work;
 	
-	IrradianceCache irradiance;
+	// Caches the composite work that constitutes the final image.
+	private IrradianceCache irradiance_final;
 	
-	Light current_light = null;	
-	
-	public Scene(int width, int height, int num_photons_per_light, double exposure)
+	// Generates the Irradiance Caches.
+	public Scene(int width, int height)
 	{
 		super(width, height);
-	
-		initialize_geometry();
-		initialize_lights();
+		
+		irradiance_work  = new IrradianceCache(width, height);
+		irradiance_final = new IrradianceCache(width, height);
+		
+		// To ensure the stability of the photon tracing routines,
+		// Screen bound geometry is generated within the renderer.
 		initialize_screen_bounds();
 		
-		if(geometries == null)
-		{
-			throw new Error("ERROR: geometries needs to be initialized.");
-		}
-		
-		if(lights == null)
-		{
-			throw new Error("ERROR: lights needs to be initialized.");
-		}
-				
-		
-		// Calculate the Irradiance.
-		irradiance = new IrradianceCache(width, height);
-		
-		int GRANULARITY = 10000;
-		
-		long start = System.nanoTime();
-		
-		int numLights = lights.length;
-		for(int light = 0; light < numLights; light++)
-		{
-			System.out.println("Light " + light);
-			
-			current_light = lights[light]; 
-			for(int j = 0; j < num_photons_per_light; j++)
-			{
-				if(j % GRANULARITY == (GRANULARITY - 1))
-				{}//System.out.println("" + (j + 1)/GRANULARITY + " * " + GRANULARITY + " beams done.");
-				
-				shootPhoton();
-			}
-		}
-		
-		long end = System.nanoTime();
-		
-		System.out.println(end - start);
-		
-		irradiance.scale_exposure(exposure);
-		
+		// Sub class makes the image by first performing work on the irradiance cache and
+		// then compositing it onto the final cache. 
+		makeImage();
 	}
-	
-	protected abstract void initialize_geometry();
-	protected abstract void initialize_lights();
+
+	protected abstract void makeImage();
 	
 	private void initialize_screen_bounds()
 	{
@@ -107,38 +88,51 @@ public abstract class Scene extends ColorCalculator
 		screen_bounds[1] = new g_line(mat_absorb, v2, v3);
 		screen_bounds[2] = new g_line(mat_absorb, v3, v4);
 		screen_bounds[3] = new g_line(mat_absorb, v4, v1);
-
-
 	}
 
 	@Override
 	public Color getColor(double x, double y)
 	{
-		return irradiance.getColor(x, y);
+		return irradiance_work.getColor(x, y);
 	}
-
-
-	// -- Irradiance Calculation functions.
-
-	// Trace the path of a photon emitted from the given light source.
-	private void shootPhoton()
+	
+	public void scaleCache(double amount)
 	{
-
-
+		irradiance_work.scale_exposure(amount);
+	}
+	
+	// -- Photon shooting functions.
+	
+	protected void setGeometry(BVH2D geometry)
+	{
+		scene_geometry = geometry;
+	}
+	
+	// Trace the paths of photons against the given geometries, with the given recursion limit.
+	private void shootPhoton(Light light)
+	{
 		// The three properties of this light.
-		Vector3 origin    = current_light.getLocation();
-		Vector3 direction = current_light.getDirection();
+		Vector3 origin    = light.getLocation();
+		Vector3 direction = light.getDirection();
 		
-		photonColor photon = current_light.diffuse(0);
-
+		photonColor photon = light.diffuse(0);
+		
+		// Should this be offset by 1?
+		int recursion_limit = light.getBounceLimit();		
+		
 		trace(origin, direction, photon, recursion_limit, Geometry.INDICE_VACUUM);
 
 	}
 
-
-	private void trace(Vector3 src, Vector3 direction, photonColor photon, int recursion_left, double refractive_indice)
-	{		
-		Geometry geom = Geometry.visible(src,  direction, geometries);
+	// Traces a photon.
+	protected void trace(Vector3 src,
+						 Vector3 direction,
+						 photonColor photon,
+						 int recursion_left,
+						 double refractive_indice)
+	{	
+		Ray query = new Ray(src, direction);
+		Geometry geom = scene_geometry.query_ray(query);
 		
 		if(geom == null)
 		{
@@ -147,13 +141,12 @@ public abstract class Scene extends ColorCalculator
 		
 		// Going off into space, no collision.
 		if(geom == null)
-		{	
-			
+		{				
 			return;
 			//throw new Error("Not possible, because we surround the scene with impermeable walls.");
 		}
 				
-		Vector3 dest = geom.computeIntersectionPoint();
+		Vector3 dest = geom.computeIntersectionVector3();
 		
 		// Add the light.
 		double attenuation = add_light_line(src.getX(), src.getY(), dest.getX(), dest.getY(), photon);
@@ -260,7 +253,7 @@ public abstract class Scene extends ColorCalculator
 				boolean rotated, boolean invert1, photonColor photon_start)
 	{
 
-		// Left End point calculations.
+		// Left End Vector3 calculations.
 
 		int x1_int = (int) x1;
 		int y1_int = (int) y1;
@@ -272,12 +265,12 @@ public abstract class Scene extends ColorCalculator
 		double per_y1 = 1 - per_y1_c;
 		
 		double scalar_1 = per_x1 * per_y1;
-		irradiance.addIrradiance(x1_int, y1_int, photon_start, scalar_1, rotated);
+		irradiance_work.addIrradiance(x1_int, y1_int, photon_start, scalar_1, rotated);
 		scalar_1 = per_x1 * per_y1_c;
-		irradiance.addIrradiance(x1_int, y1_int + 1, photon_start, scalar_1, rotated);
+		irradiance_work.addIrradiance(x1_int, y1_int + 1, photon_start, scalar_1, rotated);
  
 
-		// Right End point calculations.
+		// Right End Vector3 calculations.
 
 		int x2_int = (int) x2;
 		int y2_int = (int) y2;
@@ -287,9 +280,9 @@ public abstract class Scene extends ColorCalculator
 		double per_y2 = 1 - per_y2_c;
 		
 		double scalar_2 = per_x2_c*per_y2_c;
-		irradiance.addIrradiance(x2_int + 1, y2_int + 1, photon_start, scalar_2, rotated);
+		irradiance_work.addIrradiance(x2_int + 1, y2_int + 1, photon_start, scalar_2, rotated);
 		scalar_2 = per_x2_c*per_y2;
-		irradiance.addIrradiance(x2_int + 1, y2_int, photon_start, scalar_2, rotated);
+		irradiance_work.addIrradiance(x2_int + 1, y2_int, photon_start, scalar_2, rotated);
 
 		
 		// Draw the main body.
@@ -315,21 +308,21 @@ public abstract class Scene extends ColorCalculator
 			double partial_distance = invert1 ? (1 - percentage)*distance
 											  : percentage*distance;
 			
-			double attenuation = current_light.attenuation(partial_distance);
+			double attenuation = 1.0;//current_light.attenuation(partial_distance);
 						
-			irradiance.addIrradiance(x, y_int, photon_start,     per_y*attenuation, rotated);
-			irradiance.addIrradiance(x, y_int + 1, photon_start, per_y_c*attenuation, rotated);
+			irradiance_work.addIrradiance(x, y_int, photon_start,     per_y*attenuation, rotated);
+			irradiance_work.addIrradiance(x, y_int + 1, photon_start, per_y_c*attenuation, rotated);
 		}
 		
-		return current_light.attenuation(distance);
+		return 1.0;//FIXME: handle attenuation.//current_light.attenuation(distance);
 	}
 
-	Geometry detect_bound_collision(Vector3 ray_point, Vector3 ray_dir)
+	Geometry detect_bound_collision(Vector3 ray_Vector3, Vector3 ray_dir)
 	{
 		for(int i = 0; i < 4; i++)
 		{
 			Geometry bound = screen_bounds[i];
-			if(bound.computeDistance(ray_point, ray_dir) > 0)
+			if(bound.computeDistance(ray_Vector3, ray_dir) > 0)
 			{
 				return bound;
 			}
